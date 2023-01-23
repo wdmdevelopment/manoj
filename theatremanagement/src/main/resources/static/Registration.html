@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loginpage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <form>
+        <h1>REGISTRSTION</h1>
+        <link rel="stylesheet" href="./CSS/login.css">
+        <label>
+            Firstname
+        </label>
+        <input type="text" id="Firstname">
+        <label>
+            Lastname
+        </label>
+        <input type="text" id="Lastname">
+        <label>
+            Email
+        </label>
+        <input type="text" id="Email">
+        <label>
+            Password
+        </label>
+        <input type="Password" id="Password">
+        <label>
+            Number
+        </label>
+        <input type="text" id="Number">
+        <label>
+            Role
+        </label>
+        <input type="text" id="Role">
+       
+        <button type="button" id="sumitbtn" >Sumit</button>
+
+        <!-- <button onclick="clearField()" >Clear</button> -->
+         <!-- <button>Register</button>  -->
+         
+    </form>
+        <!-- <div class="card-footer">
+            <div id="response">
+        </div> -->
+<!-----------------Ajax-------------------------->
+
+<script>
+    
+    $(document).ready(function(){
+        $("#sumitbtn").click(function(){
+var Firstname=$('#Firstname').val();
+var Lastname=$('#Lastname').val();
+var Email=$('#Email').val();
+var Password=$('#Password').val();
+var Number=$('#Number').val();
+var Role=$('#Role').val();
+
+
+var details={
+'fname': Firstname,
+'lname': Lastname ,
+'email': Email,
+'pass': Password,
+'mobile': Number,
+'role': Role
+};
+console.log(details);
+$.ajax({
+url: "http://localhost:8080/user/create",
+type: "POST",
+data: JSON.stringify(details),
+contentType: "application/json",
+success: function (data) {
+
+    
+    window.location = "index.html";
+console.log(data);
+
+},error: function (e) {
+console.log(e);
+}
+});
+})
+});
+
+
+
+    //     $.post('http://localhost:8080/user/creat',{
+    //         Firstname:Firstname,
+    //         Lastname:Lastname,
+    //         Email:Email,
+    //         Password:Password,
+    //         Number:Number,
+    //         Role:Role
+    //     }, function(response){
+
+    //         $("#response").html("<div class='alert  alert-success'>" +response.message+"</div>")
+    //         clearField();
+
+    //     })
+    // })
+    
+    // function clearField(){
+
+    //     $('#Firstname').val("");
+    //   $('#Lastname').val("");
+    //     $('#Email').val("");
+    //     $('#Password').val("");
+    //     $('#Number').val("");
+    //     $('#Role').val("");
+
+
+    // }
+    </script>
+
+
+
+</body>
+</html>
