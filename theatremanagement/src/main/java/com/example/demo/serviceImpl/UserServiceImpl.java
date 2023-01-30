@@ -51,12 +51,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(long id, RequestUser requestUser) {
-		User user = new User();
-		user.setFname(requestUser.getFname());
-		user.setLname(requestUser.getLname());
-		user.setMobile(requestUser.getMobile());
-		user.setRole(requestUser.getRole());
-		return user;
+		
+		User theUser = userRepository.findById(id).get();
+		theUser.setFname(requestUser.getFname());
+		theUser.setLname(requestUser.getLname());
+		theUser.setMobile(requestUser.getMobile());
+		theUser.setRole(requestUser.getRole());
+		theUser.setEmail(requestUser.getEmail());
+		theUser.setPass(requestUser.getPass());
+		return userRepository.save(theUser);
 	}
 
 	@Override

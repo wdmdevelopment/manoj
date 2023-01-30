@@ -35,6 +35,7 @@ public class TheatreServiceimpl implements TheatreService {
 			address.setState(requestTheatre.getState());
 			address.setStreet(requestTheatre.getStreet());
 			address.setPhoneNumber(requestTheatre.getPhoneNumber());
+			address.setPincode(requestTheatre.getPincode());
 			Theatre theatre = new Theatre();
 			theatre.setTheatrename(requestTheatre.getTheatrename());
 			theatre.setNumberofrows(requestTheatre.getNumberofrows());

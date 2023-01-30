@@ -27,10 +27,7 @@ public class Theatre {
 
 	private String theatrename;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ADDRESS_ID", referencedColumnName = "address_id")
-
-	private Address address;
+	
 	
 	@Column(name = "NUMBER_OF_ROWS")
 	private long numberofrows;
@@ -42,7 +39,10 @@ public class Theatre {
 	private List<ShowDetails> listOfShow;
 	
 	
-	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ADDRESS_ID", referencedColumnName = "address_id")
+
+	private Address address;
 
 	public long getId() {
 		return id;
