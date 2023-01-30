@@ -14,6 +14,8 @@ public class RequestShowDetails {
 
 	@NotBlank
 	private String date;
+	
+	private long id;
 
 
 
@@ -31,6 +33,14 @@ public class RequestShowDetails {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

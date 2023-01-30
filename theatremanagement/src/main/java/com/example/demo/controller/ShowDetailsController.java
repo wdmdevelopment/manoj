@@ -31,10 +31,10 @@ public class ShowDetailsController {
 	private static final Logger logger = LoggerFactory.getLogger(TheatreController.class);
 
 	@PostMapping
-	public ResponseEntity<ShowDetails> saveShowDetails(@Valid @RequestBody RequestShowDetails ShowDetails,
-			@RequestParam("user") long userid) {
+	public ResponseEntity<ShowDetails> saveShowDetails(@Valid @RequestBody RequestShowDetails ShowDetails
+			) {
 		logger.info("creat ShowDetails");
-		return new ResponseEntity<>(ShowDetailsservice.saveShowDetails(ShowDetails, userid), HttpStatus.OK);
+		return new ResponseEntity<>(ShowDetailsservice.saveShowDetails(ShowDetails), HttpStatus.OK);
 	}
 
 	@GetMapping

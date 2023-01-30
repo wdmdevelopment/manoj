@@ -25,21 +25,21 @@ public class ShowDetailsServiceImpl implements ShowDetailsService {
 	UserRepository userRepository;
 
 	@Override
-	public ShowDetails saveShowDetails(RequestShowDetails ShowDetails, long userid) {
+	public ShowDetails saveShowDetails(RequestShowDetails ShowDetails) {
 
-		User findById = userRepository.findById(userid).orElseThrow(() -> new TheatreNotFoundException("" + userid));
-		String getuserRoll = findById.getRole();
+		//User findById = userRepository.findById(ShowDetails.get).orElseThrow(() -> new TheatreNotFoundException("" + userid));
+		//String getuserRoll = findById.getRole();
 
-		if (getuserRoll.equalsIgnoreCase("admin")) {
+		//if (getuserRoll.equalsIgnoreCase("admin")) {
 			
 			ShowDetails details = new ShowDetails();
 			details.setDate(ShowDetails.getDate());
 			details.setShowTime(ShowDetails.getShowTime());
-			
+			details.setId(ShowDetails.getId());
 			return showRepository.save(details);
-		} else {
-			throw new UserNotAllowedException("admin only allowed");
-		}
+		//} else {
+			//throw new UserNotAllowedException("admin only allowed");
+		//}
 	}
 
 	@Override

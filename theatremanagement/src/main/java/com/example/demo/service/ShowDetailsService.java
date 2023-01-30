@@ -8,7 +8,7 @@ import com.example.demo.model.RequestShowDetails;
 @Service
 public interface ShowDetailsService {
 
-	public ShowDetails saveShowDetails(RequestShowDetails ShowDetails, long userid);
+	public ShowDetails saveShowDetails(RequestShowDetails ShowDetails);
 
 	public List<ShowDetails> getAllShowDetails();
 

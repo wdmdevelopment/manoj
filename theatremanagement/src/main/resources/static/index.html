@@ -17,49 +17,24 @@
 
 
 </head>
-<body onload="mano()">
+<body>
 
-    <div class="bg-image ">
-		<img src="images.jpg" alt="background-image " />		
-	<nav class="navbar fixed-top navbar-light bg-dark" id="nav-placeholder">
-	    <div class="container-fluid">		
-		<a class="navbar-brand text-info text-opacity-100" style="font-weight:bold;"><img src="./images/12-cinema-ticket-template-of-black-realistic-movie-tickets-isolated-on-white-background-vecotr-illustrt-removebg-preview.png" width="40" height="40" class="rounded-pill">Movie Tickets</a>
-		<nav class="navbar navbar-expand-lg">
-		<ul class="navbar-nav" style="font-weight:bold;  word-spacing: 10px;">
-        <li class="nav-item">
-        <a class="nav-link text-info "  id="#home1" >Home </a>
-        </li>	
-		<li class="nav-item">
-        <a class="nav-link text-info" id="#home2"  style="font-weight:bold; word-spacing: 50px;">Movie</a>
-        </li>		
-		<li class="nav-item">
-        <a class="nav-link text-info" href="" style="font-weight:bold;"  href="theatre.html">Theaters</a>
-        </li> 	
-	    <a class="navbar-brand"></a>
-        <a class="navbar-brand text-info" href="#" style="font-weight:bold;">
-          HELLO <script>document.write(localStorage.getItem('firstname').toUpperCase());</script> <img src="./images/images1.png" alt="Hello Admin" style="width:40px;" class="rounded-pill">
-          </a>
+  <div id="placeholder">
 
-          <li class="nav-item">
-            <a class="nav-link text-info" href="" style="font-weight:bold; word-spacing: 50px;" onclick="cleardata()">LOGOUT</a>
-  
-            </li>
+	</div>
+  <script>
+    $(document).ready(function(){ 
 
-        </div>
-		</nav>
-
-        <div class="container  min-vh-10 py-4  mt-5">
-            <div class="row">
-                <div class="col-md-5 mx-auto">
-                    <div class="input-group">
-                        <input class="form-control border-end-0 border rounded-pill" type="search" value="search" id="example-search-input">
-                        <span class="input-group-append">        
-                       </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-          <!-----Add moviex------------------------------------------------------------------------------------------------>
+      if(localStorage.getItem('user') !== ''&& localStorage.getItem('email') !=""){
+        $("#placeholder").load("navbar.html");
+        mano();
+      }else{
+        location.replace("/");
+      }
+     
+    });
+    </script> 
+      <!-----Add moviex------------------------------------------------------------------------------------------------>
 
         
          
@@ -122,20 +97,20 @@
                           <option value="4">Four</option>
                         </select>
                     </div>
-                   
+                  </div>
                   </form>
-                  
-               </div>
-               </div>
-              </div>
-            </div>
-          
+               </div>   
                
+               
+             
                 <div class="modal-footer">
                   <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   <button type="button" id="btnpost" class="btn btn-primary"data-bs-dismiss="modal">Summit</button>
                 </div>
-              </div>
+              </div> 
+            </div>
+          </div>
+        </div>
             
           
                  
@@ -157,9 +132,13 @@
      </div>
 
 
- <!-----GET ALL MOVIES------------------------------------------------------------------------------------------------>    
+ <!-----GET ALL MOVIES------------------------------------------------------------------------------------------------>   
         <script>
           function mano(){	
+
+
+
+
             $.ajax({
                 dataTypa: "JSON",
                 url: "http://localhost:8080/cinema",
@@ -191,7 +170,7 @@
                   
                   $("#mydd").empty();
                   $("#mydd").append(is_Data);	
-               
+                  $("#mydd1").empty();
                   $("#mydd1").append(is_Data1);
                 }	
               });
