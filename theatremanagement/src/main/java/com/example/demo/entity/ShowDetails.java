@@ -1,7 +1,9 @@
 package com.example.demo.entity;
 
-import javax.persistence.CascadeType;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,18 +40,27 @@ public class ShowDetails {
 
 	private Cinema cinema;
 
+	
 	@Column(name = "showTime")
-
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+	
 	private String showTime;
 
+	
+	//@DateTimeFormat(pattern = "MM/DD/YYYY")
 	@Column(name = "date")
-
-	@JsonFormat(pattern = "yyyy-mm-dd")
 	private String date;
+	
+	
 
+
+
+
+	
 	public String getShowTime() {
 		return showTime;
 	}
+
 
 	public void setShowTime(String showTime) {
 		this.showTime = showTime;
@@ -56,6 +70,7 @@ public class ShowDetails {
 		return date;
 	}
 
+	
 	public void setDate(String date) {
 		this.date = date;
 	}

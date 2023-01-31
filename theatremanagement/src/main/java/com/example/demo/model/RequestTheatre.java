@@ -9,6 +9,8 @@ public class RequestTheatre {
 	@NotBlank(message = "Theatrename is mandatory")
 	@Size(min = 4, max = 15)
 	private String theatrename;
+	
+	private String userid;
 
 	@NotBlank
 	private String street;
@@ -99,6 +101,14 @@ public class RequestTheatre {
 
 	public void setNumberofseats(long numberofseats) {
 		this.numberofseats = numberofseats;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	

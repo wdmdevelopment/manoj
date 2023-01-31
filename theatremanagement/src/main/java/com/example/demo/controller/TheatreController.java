@@ -35,12 +35,12 @@ public class TheatreController {
 	private static final Logger logger = LoggerFactory.getLogger(TheatreController.class);
 
 	@PostMapping
-	public ResponseEntity<Theatre> saveTheatre(@RequestBody RequestTheatre theatre, @RequestParam("user") long userid) {
+	public ResponseEntity<Theatre> saveTheatre(@RequestBody RequestTheatre theatre) {
 
 		logger.info("save new theater - Theatrename={},PhoneNumber= {} ", theatre.getTheatrename(),
 				theatre.getPhoneNumber());
 
-		return new ResponseEntity<>(theatreService.saveTheatre(theatre, userid), HttpStatus.OK);
+		return new ResponseEntity<>(theatreService.saveTheatre(theatre), HttpStatus.OK);
 	}
 
 	@GetMapping

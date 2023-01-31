@@ -23,12 +23,12 @@ public class TheatreServiceimpl implements TheatreService {
 	@Autowired
 	UserRepository userRepository;
 
-	public Theatre saveTheatre(RequestTheatre requestTheatre, long userid) {
+	public Theatre saveTheatre(RequestTheatre requestTheatre) {
 
-		User findById = userRepository.findById(userid).orElseThrow(() -> new TheatreNotFoundException("" + userid));
-		String getuserRoll = findById.getRole();
-
-		if (getuserRoll.equalsIgnoreCase("admin")) {
+//		User findById = userRepository.findById(requestTheatre).orElseThrow(() -> new TheatreNotFoundException("" + userid));
+//		String getuserRoll = findById.getRole();
+//
+//		if (getuserRoll.equalsIgnoreCase("admin")) {
 
 			Address address = new Address();
 			address.setCity(requestTheatre.getCity());
@@ -41,11 +41,12 @@ public class TheatreServiceimpl implements TheatreService {
 			theatre.setNumberofrows(requestTheatre.getNumberofrows());
 			theatre.setNumberofseats(requestTheatre.getNumberofseats());
 			theatre.setAddress(address);
+			//theatre.setId(requestTheatre.getUserid());
 			return theatreRepository.save(theatre);
-		} else {
+//		} else {
 
-			throw new UserNotAllowedException("admin only allowed");
-		}
+			//throw new UserNotAllowedException("admin only allowed");
+		//}
 	}
 
 	public List<Theatre> getAllTheatre() {

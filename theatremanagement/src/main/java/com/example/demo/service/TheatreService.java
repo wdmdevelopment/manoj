@@ -8,7 +8,7 @@ import com.example.demo.model.RequestTheatre;
 @Service
 public interface TheatreService {
 	
-	public Theatre saveTheatre(RequestTheatre theatre, long userid);
+	public Theatre saveTheatre(RequestTheatre theatre);
 
 	public List<Theatre> getAllTheatre();
 
