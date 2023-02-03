@@ -59,9 +59,9 @@ public class TheatreServiceimpl implements TheatreService {
 		return findById;
 	}
 
-	public Theatre updateTheatre(long id, RequestTheatre requestTheatre, long userid) {
+	public Theatre updateTheatre(long id, RequestTheatre requestTheatre) {
 
-		User findById = userRepository.findById(userid).orElseThrow(() -> new TheatreNotFoundException("" + id));
+		User findById = userRepository.findById(requestTheatre.getUserid()).orElseThrow(() -> new TheatreNotFoundException("" + id));
 
 		String getuserRoll = findById.getRole();
 

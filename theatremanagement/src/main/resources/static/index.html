@@ -169,7 +169,7 @@
                  is_Data = is_Data + '<div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 200px; height: 300px; alt="..."><div class="card-body">' ;
 
                  if(localStorage.getItem('role') == 'admin'){
-                    is_Data = is_Data +  '<button class="btn btn-outline-success me-md-4" style="padding-right:5%" type="button" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
+                    is_Data = is_Data +  '<button class="btn btn-outline-success me-md-4" style="padding-right:5%" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
                           } else {
                             is_Data = is_Data +  '<button class="btn btn-outline-warning" type="button" id="BOOKING">BOOKING</button>'; 
                           }
@@ -178,7 +178,7 @@
                   
                   $("#mydd").empty();
                   $("#mydd").append(is_Data);	
-                  //$("#mydd1").empty();
+                  $("#mydd1").empty();
                   $("#mydd1").append(is_Data1);
                 }	
               });
@@ -209,7 +209,7 @@
                  is_Data = is_Data + '<div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 200px; height: 300px; alt="..."><div class="card-body">' ;
 
                  if(localStorage.getItem('role') == 'admin'){
-                    is_Data = is_Data +  '<button class="btn btn-outline-success me-md-2" style="padding-right:5%" type="button" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
+                    is_Data = is_Data +  '<button class="btn btn-outline-success me-md-2" style="padding-right:5%" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
                           }else{
                             is_Data = is_Data +  '<button class="btn btn-outline-warning" type="button" id="BOOKING">BOOKING</button>'; 
                           }
@@ -288,15 +288,16 @@ console.log(e);
 //<!-----------------------------PUT OPERATION----------------------------------->
 function edit(id){
 
+
   
 $.ajax({
+dataType: "JSON",
 url: "http://localhost:8080/cinema/"+ id,
-type: "PUT",
-data: JSON,
-contentType: "application/json",
+type: "GET",
+ 
 success: function (data) {
-  mano();
-console.log(data);
+    var update
+ 
 },error: function (e) {
 console.log(e);
 }

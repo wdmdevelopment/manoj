@@ -1,17 +1,23 @@
 package com.example.demo.serviceImpl;
 
 import java.util.List;
-
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Cinema;
 import com.example.demo.entity.ShowDetails;
+import com.example.demo.entity.Theatre;
 import com.example.demo.entity.User;
 import com.example.demo.exceptionhandler.NotFoundException;
 import com.example.demo.exceptionhandler.TheatreNotFoundException;
 import com.example.demo.exceptionhandler.UserNotAllowedException;
 import com.example.demo.model.RequestShowDetails;
+import com.example.demo.repository.CinemaRepository;
 import com.example.demo.repository.ShowRepository;
+import com.example.demo.repository.TheatreRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ShowDetailsService;
 
@@ -21,25 +27,34 @@ public class ShowDetailsServiceImpl implements ShowDetailsService {
 	@Autowired
 
 	ShowRepository showRepository;
+	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	TheatreRepository theatreRepository;
+	
+	@Autowired
+	CinemaRepository cinemaRepository;
+	
 
 	@Override
 	public ShowDetails saveShowDetails(RequestShowDetails ShowDetails) {
 
-		//User findById = userRepository.findById(ShowDetails.get).orElseThrow(() -> new TheatreNotFoundException("" + userid));
-		//String getuserRoll = findById.getRole();
-
-		//if (getuserRoll.equalsIgnoreCase("admin")) {
-			
+		Theatre findById = theatreRepository.findById(ShowDetails.getTheatreId()).
+				orElseThrow(() -> new UserNotAllowedException("theatre id not found" ));
+		
+		Cinema findBy = cinemaRepository.findById(ShowDetails.getCinemaId()).
+				orElseThrow(() -> new UserNotAllowedException("cinema id not found" ));
+		
 			ShowDetails details = new ShowDetails();
 			details.setDate(ShowDetails.getDate());
 			details.setShowTime(ShowDetails.getShowTime());
-			details.setId(ShowDetails.getId());
+			details.setCinema(findBy);
+			details.setTheatrename(findById);
+			
 			return showRepository.save(details);
-		//} else {
-			//throw new UserNotAllowedException("admin only allowed");
-		//}
+		
 	}
 
 	@Override
@@ -89,5 +104,18 @@ public class ShowDetailsServiceImpl implements ShowDetailsService {
 		}
 
 	}
+
+	@Override
+	public List<ShowDetails> getBytheatre(long id) {
+		
+	List<ShowDetails> obj= showRepository.findByTheatrename_id(id);
+		
+		return obj;
+	}
+
+
+	
+
+
 
 }

@@ -30,12 +30,14 @@ public class ShowDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	
+	//(cascade = CascadeType.ALL)
 	@ManyToOne
 	@JoinColumn(name = "theatre_id")
 	@JsonIgnore
 	private Theatre theatrename;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	@JoinColumn(name = "CINEMA", referencedColumnName = "cinema_id")
 
 	private Cinema cinema;

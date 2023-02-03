@@ -10,7 +10,7 @@ public class RequestTheatre {
 	@Size(min = 4, max = 15)
 	private String theatrename;
 	
-	private String userid;
+	private long userid;
 
 	@NotBlank
 	private String street;
@@ -103,11 +103,11 @@ public class RequestTheatre {
 		this.numberofseats = numberofseats;
 	}
 
-	public String getUserid() {
+	public long getUserid() {
 		return userid;
 	}
 
-	public void setUserid(String userid) {
+	public void setUserid(long userid) {
 		this.userid = userid;
 	}
 

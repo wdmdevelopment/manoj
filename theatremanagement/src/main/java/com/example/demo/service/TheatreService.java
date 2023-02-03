@@ -14,7 +14,7 @@ public interface TheatreService {
 
 	public Theatre getTheatreById(long id);
 
-	public Theatre updateTheatre(long id, RequestTheatre requestTheatre,long userid);
+	public Theatre updateTheatre(long id, RequestTheatre requestTheatre);
 
 	public void deleteTheatre(long id);
 	public List<Theatre> filterbyTheatreName(String tName);

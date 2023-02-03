@@ -1,10 +1,7 @@
 package com.example.demo.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,15 +9,22 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class RequestShowDetails {
 
-	//private RequestTheatre theatrename;
 
 	
-	//private RequestCinema cinema;
-
-	//@Column(name = "START_TIME")
+	@NotNull
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
 	private String showTime;
-
+	
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@Column(name = "DATE")
+	private String date;
+	
+	private long cinemaId;
+	
+	private long theatreId;
+	
+	
 	
 	public String getShowTime() {
 		return showTime;
@@ -41,22 +45,39 @@ public class RequestShowDetails {
 		this.date = date;
 	}
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	//@Column(name = "DATE")
-	private String date;
 	
-	private long id;
 
-
-
-
-
-	public long getId() {
-		return id;
+	public RequestShowDetails(@NotNull String showTime, @NotNull String date, long cinemaId, long theatreId) {
+		super();
+		this.showTime = showTime;
+		this.date = date;
+		this.cinemaId = cinemaId;
+		this.theatreId = theatreId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+
+	public long getTheatreId() {
+		return theatreId;
 	}
 
+
+	public void setTheatreId(long theatreId) {
+		this.theatreId = theatreId;
+	}
+
+
+	public long getCinemaId() {
+		return cinemaId;
+	}
+
+
+	public void setCinemaId(long cinemaId) {
+		this.cinemaId = cinemaId;
+	}
+
+	
+	
+	
+	
+	
 }

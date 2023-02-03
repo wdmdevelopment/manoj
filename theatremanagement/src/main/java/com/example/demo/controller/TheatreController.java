@@ -62,10 +62,10 @@ public class TheatreController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Theatre> updateTheatre(@PathVariable long id, @RequestBody RequestTheatre requestTheatre,
-			@RequestParam("user") long userid) {
+	public ResponseEntity<Theatre> updateTheatre(@PathVariable long id, @RequestBody RequestTheatre requestTheatre
+			) {
 		logger.info("update a theatre");
-		Theatre theate = theatreService.updateTheatre(id, requestTheatre, userid);
+		Theatre theate = theatreService.updateTheatre(id, requestTheatre);
 		if (theate == null) {
 			return ResponseEntity.notFound().build();
 		}

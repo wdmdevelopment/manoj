@@ -35,7 +35,9 @@ public class Theatre {
 	@Column(name = "NUMBER_OF_SEATS")
 	private long numberofseats;
 	
-	@OneToMany(mappedBy = "theatrename", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 
+	//
+	@OneToMany(mappedBy = "theatrename",cascade = CascadeType.ALL,  fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<ShowDetails> listOfShow;
 	
 	

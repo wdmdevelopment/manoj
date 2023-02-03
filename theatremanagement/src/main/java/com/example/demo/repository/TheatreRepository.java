@@ -12,4 +12,7 @@ public interface TheatreRepository extends JpaRepository<Theatre, Long> {
 	
 	@Query(value = "SELECT * FROM testproject.theatre WHERE theatrename LIKE %:theatrename%", nativeQuery = true)
 	public List<Theatre> findByTheatre(String theatrename);
+	
+	@Query(value = "select * from testproject.theatre  WHERE id LIKE %:id%", nativeQuery = true)
+	 public  List<Theatre> findByTheatre(long id);
 }
