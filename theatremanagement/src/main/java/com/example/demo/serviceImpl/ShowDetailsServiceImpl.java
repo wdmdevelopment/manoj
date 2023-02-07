@@ -40,7 +40,7 @@ public class ShowDetailsServiceImpl implements ShowDetailsService {
 
 	@Override
 	public ShowDetails saveShowDetails(RequestShowDetails ShowDetails) {
-
+		try {
 		Theatre findById = theatreRepository.findById(ShowDetails.getTheatreId()).
 				orElseThrow(() -> new UserNotAllowedException("theatre id not found" ));
 		
@@ -54,6 +54,11 @@ public class ShowDetailsServiceImpl implements ShowDetailsService {
 			details.setTheatrename(findById);
 			
 			return showRepository.save(details);
+			
+		}
+		catch (Exception e) {
+			throw new NotFoundException(e.getMessage());
+		}
 		
 	}
 

@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
   referrerpolicy="no-referrer" />
 <!-- MODEL PANAL -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> 
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>  -->
 
 
 <!-- fondasowesome PANAL -->
@@ -65,7 +65,7 @@ function getAllTheatre(){
                     is_Data2 = is_Data2 +'<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">ADD THEATRE</button>';
                  
                 $.each(responseText, function (index, item ) {
-            
+
                  is_Data += '<div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-body text-success"><h5 class="card-title">THEATER</h5><div class="card-header">theatrename : ' +item.theatrename+'<p class="card-text">city : ' +item.address.city+'</p><p class="card-text">state : ' +item.address.state+'</p><p class="card-text">phoneNumber : ' +item.address.phoneNumber+'</p>' ;
 				 
                if(localStorage.getItem('role') == 'admin'){
@@ -86,24 +86,35 @@ function getAllTheatre(){
 		
 			}
 
+      // var  Store ="";
+      // console.log(Store);
+//       var inputElement = document.createElement('button');
+// inputElement.type = "button"
+// inputElement.addEventListener('click', function(){
+//   findBytheatreid(result.id);
+// });
+// console.log(inputElement);
+// ​document.body.appendChild(inputElement);​
 
+var thetreId = "";
 function findBytheatreid(id){
-
-
+ 
+  thetreId = id;
+      console.log(id);
   $.ajax({
 url: "http://localhost:8080/showDetails/theatreId/"+id,
 type: "GET",
 data: JSON,
 contentType: "application/json",
 success: function (responseText) {
-
+console.log(responseText);
   // localStorage.setItem('theatreId',responseText.id);
   // localStorage.setItem('cinemaId',responseText.cinema.id);
   
   var is_Data5 ="";
 
   $.each(responseText, function (index, item ) {
-    is_Data5 +='<tr><td>'+item.cinema.movieName+'</td><td>'+item.showTime+'</td><td>'+item.date+'</td> </tr>';
+    is_Data5 +='<tr><td><input type="text"  id="exampleInputEmail1" hidden>'+item.id+'</input>'+item.cinema.movieName+'</td><td>'+item.showTime+'</td><td>'+item.date+'</td> </tr>';
 
   });
    $("#mano").empty();
@@ -129,25 +140,31 @@ $("#mano").append(is_Data5);
         $("#saveshow").click(function(){
 var showTime=$('#recipient-name').val();
 var date=$('#recipient').val();
+var cinemaId = $("#mydd5").val();
+ 
 
 var details={
 'showTime': showTime,
 'date': date ,
-'theatreId':localStorage.getItem('theatreId'),
-'cinemaId':localStorage.getItem('cinemaId')
+"cinemaId": cinemaId,
+  "theatreId": thetreId
+
 
 };
 console.log(details);
 $.ajax({
-url: "http://localhost:8080/ShowDetails",
+url: "http://localhost:8080/showDetails",
 type: "POST",
 data: JSON.stringify(details),
 contentType: "application/json",
 success: function (data) {
+  
+  alert("success");
   findBytheatreid();
 console.log(data);
 },error: function (e) {
-console.log(e);
+    alert(JSON.stringify(e));  
+  console.log(e);
 }
 });
 })
@@ -224,7 +241,7 @@ console.log(responseText);
 		
   $.each(responseText, function (index, item ) {
 
-    is_Data6 +=  '<option class="option" value="'+item.movieName+'">' +item.movieName+ '</option>';
+    is_Data6 +=  '<option class="option" value="'+item.id+'">' +item.movieName+ '</option>';
 
   });
    $("#mydd5").empty();
@@ -259,8 +276,8 @@ $("#mydd5").append(is_Data6);
     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id = "mydd5" ></select> 
       
      
-      
-  
+       
+     
     <div class="mb-3">
       <label for="recipient-name" class="col-form-label">showTime:</label>
       <input type="time" class="form-control" id="recipient-name">
@@ -291,7 +308,7 @@ $("#mydd5").append(is_Data6);
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" style="padding-right: 20%;">Viwe Shows</h5>
+        <h5 class="modal-title" id="exampleModalLabel" style="padding-right: 20%;">View Shows</h5>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" onclick = "showitem()" >ADD SHOWS</button>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
