@@ -22,17 +22,22 @@ public class Actors {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Size(min = 2, max = 15)
+
 	@Column(name = "name")
 	
-	private String name;
+	private String actor;
 	
 	
-	@Size(min = 2, max = 15)
+	
 	@Column(name = "role")
-	private String role;
+	private String actress;
 	
+	private String musicDirecter;
 	
+	//@Size(min = 2, max = 15)
+	private String Directer;
+	
+	private String releasedYear;
 	
 	@ManyToMany(mappedBy = "actors")
 	@JsonIgnore
@@ -55,24 +60,55 @@ public class Actors {
 	}
 
 	
-	public String getName() {
-		return name;
+	public String getActor() {
+		return actor;
+	}
+
+
+	public String getActress() {
+		return actress;
+	}
+
+
+	public String getMusicDirecter() {
+		return musicDirecter;
 	}
 
 	
-	public void setName(String name) {
-		this.name = name;
+	public String getDirecter() {
+		return Directer;
 	}
 
 	
-	public String getRole() {
-		return role;
+	public void setActor(String actor) {
+		this.actor = actor;
 	}
 
 	
-	public void setRole(String role) {
-		this.role = role;
+	public void setActress(String actress) {
+		this.actress = actress;
 	}
+
+	
+	public void setMusicDirecter(String musicDirecter) {
+		this.musicDirecter = musicDirecter;
+	}
+
+	
+	public void setDirecter(String directer) {
+		Directer = directer;
+	}
+
+	public String getReleasedYear() {
+		return releasedYear;
+	}
+
+	public void setReleasedYear(String releasedYear) {
+		this.releasedYear = releasedYear;
+	}
+
+	
+
 
 	
 	

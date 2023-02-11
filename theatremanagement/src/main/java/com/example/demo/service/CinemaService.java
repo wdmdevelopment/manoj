@@ -15,7 +15,10 @@ public interface CinemaService {
 	public Cinema savecinema(RequestCinema cinema);
 	public List<Cinema> getAllCinema();
 	public Cinema getCinemaById(long id);
-	public Cinema updateCinema(long id, RequestCinema requestCinema, long userid);
+	public Cinema updateCinema(long id, RequestCinema requestCinema);
 	public void deleteCinema(long id);
+	public List<Cinema> findByCinema(String name);
+
+
 
 }

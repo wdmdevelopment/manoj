@@ -16,20 +16,68 @@
             Email
         </label>
         <input type="text" id="txt_uname">
+        <div class="error" style="color: red;" id="emailError"></div>
         <label>
             Password
         </label>
         <input type="Password" id="txt_pwd">
-        
+        <div class="error" style="color: red;" id="passError"></div>
         <button id="but_submit" type="button">login</button>
+
+        <div>
+            <p class="mb-0">Don't have an account? <a href="Registration.html" class="text-dark-50">Sign Up</a>
+            </p>
+          </div>
         
           
     </form>
+
+    
 
 <!------------------------------------------------->
 <script>
     $(document).ready(function(){
         $("#but_submit").click(function(){
+
+            // "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+            // Minimum eight characters, at least one letter and one number:
+       var email_regex =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+       var password_regex =/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+   
+     var email = jQuery.trim($("#txt_uname").val());
+     if(email == ''){
+     $('#emailError').text('This field is required');
+     return false;
+     }
+     if(email != "") {
+     if(!email_regex.test(email)){
+     $('#emailError').text('The e-mail address entered is invalid.');
+     return false;
+     }
+     }
+     var pass = jQuery.trim($("#txt_pwd").val());
+     if(pass == ''){
+     $('#passError').text('This field is required');
+     return false;
+     }
+     if(pass != "") {
+     if(!password_regex.test(pass)){
+     $('#passError').text('The password entered is invalid.');
+     return false;
+     }
+     }
+
+
+     if(email != "") {
+     if(!email_regex.test(email)){
+     $('#emailError').text('The e-mail address entered is invalid.');
+     return false;
+     }
+     }
+
+
+
             var email = $("#txt_uname").val().trim();
             var password = $("#txt_pwd").val().trim();
     
@@ -54,6 +102,8 @@
             }
         });
     });
+    
+
     
     
     </script>

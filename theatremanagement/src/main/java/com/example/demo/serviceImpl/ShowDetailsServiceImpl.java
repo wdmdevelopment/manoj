@@ -2,9 +2,9 @@ package com.example.demo.serviceImpl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Cinema;
@@ -15,6 +15,7 @@ import com.example.demo.exceptionhandler.NotFoundException;
 import com.example.demo.exceptionhandler.TheatreNotFoundException;
 import com.example.demo.exceptionhandler.UserNotAllowedException;
 import com.example.demo.model.RequestShowDetails;
+import com.example.demo.model.ResponseShow;
 import com.example.demo.repository.CinemaRepository;
 import com.example.demo.repository.ShowRepository;
 import com.example.demo.repository.TheatreRepository;
@@ -116,6 +117,47 @@ public class ShowDetailsServiceImpl implements ShowDetailsService {
 	List<ShowDetails> obj= showRepository.findByTheatrename_id(id);
 		
 		return obj;
+	}
+
+	@Override
+	public ResponseShow getBycinema(long id) {
+		ResponseShow show = new ResponseShow();
+		Optional<Cinema> findById = cinemaRepository.findById(id);
+		if(!findById.isPresent()) {
+			throw new NotFoundException("Cinema not found");
+		}
+		
+		Cinema cinema = findById.get();
+		
+		List<Theatre> theaters = theatreRepository.findAllByListOfShowCinemaId(id);
+		System.out.println(theaters);
+		
+		for(Theatre t : theaters) {
+			List<ShowDetails> collect = t.getListOfShow().stream()
+					.filter(e -> e.getCinema().getId()==id)
+					.collect(Collectors.toList());
+			t.setListOfShow(collect);
+		}
+		
+		
+		show.setCinemaId(cinema.getId());
+		show.setMovieName(cinema.getMovieName());
+		show.setPoster(cinema.getPoster());
+		
+		show.setTheatres(theaters);
+		
+//		List<ResponseShowDetails> lst = new ArrayList<>();
+//		for(ShowDetails show: findBy) {
+//			show.getTheatrename()
+//		}
+		
+		
+		//findBy.stream().collect(Collectors.toMap(ShowDetails::getTheatrename, ShowDetails::getTheatrename))
+		
+		//Theatre findById = theatreRepository.findById(id).orElseThrow(() -> new NotFoundException(""+id));
+		
+		//findById.getTheatrename();
+		return show;
 	}
 
 

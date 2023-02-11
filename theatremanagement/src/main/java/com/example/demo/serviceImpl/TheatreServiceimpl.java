@@ -84,7 +84,7 @@ public class TheatreServiceimpl implements TheatreService {
 		} else {
 			throw new UserNotAllowedException("admin only allowed");
 		}
-		return obj;
+		return theatreRepository.save(obj);
 	}
 
 	public void deleteTheatre(long id) {
@@ -97,13 +97,11 @@ public class TheatreServiceimpl implements TheatreService {
 		}
 	}
 	
-public List<Theatre> filterbyTheatreName(String tName) {
+		public List<Theatre> filterbyTheatreName(String tName) {
 		
 		return theatreRepository.findByTheatre(tName);			
-		 
-		 
 			 
-	}
+		}
 
 	
 	

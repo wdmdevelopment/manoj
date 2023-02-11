@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,10 @@ public class Cinema {
 		this.poster = poster;
 	}
 
-	@ManyToMany
+	@ManyToMany( cascade = {
+	        CascadeType.PERSIST, 
+	        CascadeType.MERGE
+	    })
 	@JoinTable(name = "Actors_Cinema_Map", joinColumns = { @JoinColumn(name = "cinema_id") }, inverseJoinColumns = {
 	@JoinColumn(name = "ACTORS_ID") })
 	private List<Actors> actors;

@@ -29,11 +29,10 @@ public class ShowDetails {
 	@Column(name = "show_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
 	
 	//(cascade = CascadeType.ALL)
 	@ManyToOne
-	@JoinColumn(name = "theatre_id")
+	@JoinColumn(name = "theatre_id", referencedColumnName = "id")
 	@JsonIgnore
 	private Theatre theatrename;
 
@@ -47,7 +46,6 @@ public class ShowDetails {
 	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
 	
 	private String showTime;
-
 	
 	//@DateTimeFormat(pattern = "MM/DD/YYYY")
 	@Column(name = "date")

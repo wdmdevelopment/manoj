@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 public class RequestUser {
 
@@ -10,10 +11,10 @@ public class RequestUser {
 	@NotBlank
 	private String lname;
 
-	//@Email
+	@Email
 	private String email;
 
-	//@NotBlank(message = "New password is mandatory")
+	@NotBlank(message = "New password is mandatory")
 	private String pass;
 
 	@NotBlank

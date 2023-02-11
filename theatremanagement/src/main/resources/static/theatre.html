@@ -2,13 +2,17 @@
  
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
   referrerpolicy="no-referrer" />
-<!-- MODEL PANAL -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>  -->
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
 <!-- fondasowesome PANAL -->
   <script src="https://kit.fontawesome.com/54e0ebeaef.js" crossorigin="anonymous"></script>
@@ -20,6 +24,19 @@
 
 	</div>
 
+
+  <!-- <div class="container  min-vh-10 py-4  mt-5">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div class="input-group">
+                <input class="form-control border-end-0 border rounded-pill" type="search"    id="example-search" onkeyup="searchCinema()" placeholder="movie">
+  
+                <span class="input-group-append">        
+               </span>
+            </div>
+        </div>
+    </div>
+  </div> -->
 	<!-- <div id="mydd" style="padding-top: 10rem;">
 
 	</div> -->
@@ -62,14 +79,17 @@ function getAllTheatre(){
                     var is_Data2 ="";
 
                     if(localStorage.getItem('role') == 'admin')
-                    is_Data2 = is_Data2 +'<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">ADD THEATRE</button>';
+                    is_Data2 = is_Data2 +'<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" onclick="showHiden()">ADD THEATRE</button>';
+
+
+                    // <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" id="edit" onclick ="edit('+item.id+')">
                  
                 $.each(responseText, function (index, item ) {
 
-                 is_Data += '<div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-body text-success"><h5 class="card-title">THEATER</h5><div class="card-header">theatrename : ' +item.theatrename+'<p class="card-text">city : ' +item.address.city+'</p><p class="card-text">state : ' +item.address.state+'</p><p class="card-text">phoneNumber : ' +item.address.phoneNumber+'</p>' ;
+                 is_Data += '<div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-body text-success"><div class="card-header"> ' +item.theatrename+'<p class="card-text">' +item.address.city+'</p><p class="card-text">' +item.address.state+'</p><p class="card-text">' +item.address.phoneNumber+'</p>' ;
 				 
                if(localStorage.getItem('role') == 'admin'){
-                   is_Data = is_Data +  '<button class="btn btn-outline-success me-md-2" style="padding-right:5%" type="button" id="edit" onclick ="edit('+item.id+')"><i class="fa-solid fa-pen"></i></button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="detetetheatre('+item.id+') "><i class="fa-regular fa-trash-can"></i></button><button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="findBytheatreid('+item.id+')">ADD show</button>';
+                   is_Data = is_Data +  '<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" id="edit" onclick ="edit('+item.id+')"><i class="fa-solid fa-pen"></i></button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="detetetheatre('+item.id+') "><i class="fa-regular fa-trash-can"></i></button><button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="findBytheatreid('+item.id+')">show</button>';
                         }
 						  
 							is_Data = is_Data + '</div></div></div>';					 
@@ -77,7 +97,7 @@ function getAllTheatre(){
                   
                  $("#mydd").empty();
                   $("#mydd").append(is_Data);
-                  $("#addshows").empty();
+                 $("#addshows").empty();
                   $("#addshows").append(is_Data2);
 									  
                 }	
@@ -86,15 +106,90 @@ function getAllTheatre(){
 		
 			}
 
-      // var  Store ="";
-      // console.log(Store);
-//       var inputElement = document.createElement('button');
-// inputElement.type = "button"
-// inputElement.addEventListener('click', function(){
-//   findBytheatreid(result.id);
-// });
-// console.log(inputElement);
-// ​document.body.appendChild(inputElement);​
+
+    function  showHiden(){
+
+                    document.getElementById('update').hidden= true;
+                    document.getElementById('btnpost').hidden= false;
+                    $('#theatrename').val("");
+                    $('#city').val("");
+                    $('#numberofrows').val("");
+                    $('#street').val("");
+                    $('#numberofseats').val("");
+                    $('#phoneNumber').val("");
+                   
+
+    }
+
+
+    var editTheaterId="";
+    function  edit(id){
+      editTheaterId = id;
+                    document.getElementById('update').hidden= false;
+                    document.getElementById('btnpost').hidden= true;
+                    
+$.ajax({
+dataType: "JSON",
+url: "http://localhost:8080/Theatre/"+ id,
+type: "GET",
+ 
+success: function (response) {
+
+                    $('#theatrename').val(response.theatrename);
+                    $('#city').val(response.address.city);
+                    $('#numberofrows').val(response.numberofrows);
+                    $('#street').val(response.address.street);
+                    $('#numberofseats').val(response.numberofseats);
+                    $('#phoneNumber').val(response.address.phoneNumber);
+
+},error: function (e) {
+console.log(e);
+}
+});
+ }
+
+
+    function  putTheatre(){
+
+      var details={
+
+
+'theatrename':  $('#theatrename').val(),
+'city': $('#city').val(),
+'numberofrows': $('#numberofrows').val(),
+'street': $('#street').val(),
+'numberofseats':$('#numberofseats').val(),                       
+'phoneNumber': $('#phoneNumber').val(),
+
+'userid':localStorage.getItem('user')
+};
+
+
+$.ajax({
+url: "http://localhost:8080/Theatre/"+ editTheaterId,
+type: "PUT",
+data: JSON.stringify(details),
+contentType: "application/json",
+success: function (data) {
+  getAllTheatre();
+  alert("success");
+  editTheaterId.empty();
+  $('#theatrename').val("");
+    $('#city').val("");
+    $('#numberofrows').val("");
+    $('#street').val("");
+    $('#numberofseats').val("");
+    $('#phoneNumber').val("");
+   
+},error: function (e) {
+ 
+            console.log(JSON.stringify(e));
+}
+
+});
+}
+  
+
 
 var thetreId = "";
 function findBytheatreid(id){
@@ -114,7 +209,8 @@ console.log(responseText);
   var is_Data5 ="";
 
   $.each(responseText, function (index, item ) {
-    is_Data5 +='<tr><td><input type="text"  id="exampleInputEmail1" hidden>'+item.id+'</input>'+item.cinema.movieName+'</td><td>'+item.showTime+'</td><td>'+item.date+'</td> </tr>';
+   // '+item.id+'
+    is_Data5 +='<tr><td><input type="text"  id="exampleInputEmail1" hidden></input>'+item.cinema.movieName+'</td><td>'+item.showTime+'</td><td>'+item.date+'</td> <td><button type="button" class="btn btn-danger" onclick= deleteShow('+item.id+')>Delete</button></td></tr>';
 
   });
    $("#mano").empty();
@@ -240,15 +336,38 @@ console.log(responseText);
 		is_Data6 ="";
 		
   $.each(responseText, function (index, item ) {
-
-    is_Data6 +=  '<option class="option" value="'+item.id+'">' +item.movieName+ '</option>';
+   // value="'+item.id+'"
+    is_Data6 +=  '<option class="option" value="'+item.id+'" >' +item.movieName+ '</option>';
 
   });
    $("#mydd5").empty();
 $("#mydd5").append(is_Data6);
+jQuery.noConflict();
+$("#myModal").appendTo("body").modal("show");
 }
 });
  }
+
+
+function deleteShow(showId){
+
+  $.ajax({
+url: "http://localhost:8080/showDetails/"+showId,
+type: "DELETE",
+data: JSON,
+contentType: "application/json",
+success: function (data) {
+  findBytheatreid();
+console.log(data);
+},error: function (e) {
+console.log(e);
+}
+});
+}
+
+
+
+
 
 
 </script>
@@ -258,6 +377,8 @@ $("#mydd5").append(is_Data6);
 <!-- </div> -->
 
 <!-- The Modal -->
+
+
 
 
 <div class="modal fade" id="myModal">
@@ -302,14 +423,12 @@ $("#mydd5").append(is_Data6);
 
 <!-- ------------------------------GET ALL SHOWS--------------------------------------------- -->
 
-
-
  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel" style="padding-right: 20%;">View Shows</h5>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" onclick = "showitem()" >ADD SHOWS</button>
+        <button type="button" class="btn btn-primary"   onclick = "showitem()" >ADD SHOWS</button>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
  <!-- <div class="modal-body"> -->
@@ -319,8 +438,9 @@ $("#mydd5").append(is_Data6);
       <tr>
        
         <th scope="col">movie Name</th>
-        <th scope="col">Show Date</th>
         <th scope="col">Show Time</th>
+        <th scope="col">Show Date</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody id="mano">
@@ -338,7 +458,9 @@ $("#mydd5").append(is_Data6);
  <!-- Button trigger modal -->
  
   
- <div id="addshows">
+ <div id="addshows">  
+  
+ </div>
   <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -352,7 +474,7 @@ $("#mydd5").append(is_Data6);
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label" for="Details">THEATRE DETAILS</label>
+                        <label class="form-label" for="Details"></label>
                           <input type="text" id="theatrename" class="form-control form-control-lg" placeholder="theatrename"/>
                       </div>
                     </div>
@@ -360,7 +482,7 @@ $("#mydd5").append(is_Data6);
              
               <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="Address">address DETAILS</label>
+                    <label class="form-label" ></label>
                     <input type="text" id="city" class="form-control form-control-lg" placeholder="city"/>
                   </div>
               </div>
@@ -403,16 +525,21 @@ $("#mydd5").append(is_Data6);
        
           <div class="modal-footer">
             <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" id="btnpost" class="btn btn-primary"data-bs-dismiss="modal">Summit</button>
+
+            <button type="button" id="btnpost" hidden class="btn btn-primary"data-bs-dismiss="modal">Summit</button>
+
+            <button data-bs-toggle="modal" hidden data-bs-target="#smallModel" type="button" id="update"
+            class="btn btn-warning" onclick="putTheatre()">Update</button>
           </div>
         </div> 
       </div>
     </div>
-  </div>
   
   
- <!-- ------------------------------get all show--------------------------------------------- -->
- 
+  
+ <!-- ------------------------------USER--------------------------------------------- -->
+ <!-- ------------------------------USER--------------------------------------------- -->
 
+ 
 </body>
 </html>

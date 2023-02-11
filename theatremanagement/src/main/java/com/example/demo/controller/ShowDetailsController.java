@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -22,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.ShowDetails;
-import com.example.demo.entity.Theatre;
 import com.example.demo.model.RequestShowDetails;
+
 import com.example.demo.service.ShowDetailsService;
 
 @RestController
@@ -45,9 +46,30 @@ public class ShowDetailsController {
 
 	@GetMapping
 	public ResponseEntity<List<ShowDetails>> getAllShowDetails() {
+	
+		List<ShowDetails> show = ShowDetailsservice.getAllShowDetails();
+		
+		//List<ResponseCimnema> showResponse = new ArrayList<>();
+		
+//		for(ShowDetails shows : show) {
+//			ResponseCimnema responsecinema = new ResponseCimnema(shows.getCinema().getId(), shows.getId(), shows.getTheatrename().getId(),
+//					shows.getCinema().getMovieName(), shows.getCinema().getRating(), shows.getCinema().getReleasedYear(),
+//					shows.getCinema().getLanguage(), shows.getCinema().getPoster(), 
+//					shows.getShowTime(), shows.getDate(), shows.getTheatrename().getTheatrename(), shows.getTheatrename().getNumberofrows(), shows.getTheatrename().getNumberofseats(),
+//					shows.getTheatrename().getAddress().getStreet(), shows.getTheatrename().getAddress().getCity(),
+//					shows.getTheatrename().getAddress().getState(), shows.getTheatrename().getAddress().getPincode(),
+//					shows.getTheatrename().getAddress().getPincode());
+//			
+//			showResponse.add(responsecinema);
+//		}
+		
 		logger.info("get a allShowDetails");
-		return new ResponseEntity<>(ShowDetailsservice.getAllShowDetails(), HttpStatus.OK);
+		return new ResponseEntity<>(show, HttpStatus.OK);
 	}
+	
+	
+	
+	
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ShowDetails> getShowDetailsById(@Valid @PathVariable("id") long id) {
@@ -90,6 +112,16 @@ public class ShowDetailsController {
 		return new ResponseEntity<>(ShowDetailsservice.getBytheatre(Id), HttpStatus.OK);
 		
 	}
+	
+
+	@GetMapping("/cinemaId/{id}")	
+	public ResponseEntity<?> getByCinema(@PathVariable("id") long Id){
+		System.out.println("---------->");
+		return new ResponseEntity<>(ShowDetailsservice.getBycinema(Id), HttpStatus.OK);
+		
+	}
+	
+	
 	
 
 }

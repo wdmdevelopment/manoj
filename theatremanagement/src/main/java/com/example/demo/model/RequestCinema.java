@@ -1,30 +1,48 @@
 package com.example.demo.model;
-
-import java.util.List;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RequestCinema {
 
-	// @NotBlank(message = "movieName is mandatory")
+	@NotBlank(message = "movieName is mandatory")
 	@JsonProperty("movieName")
 	private String movieName;
-
+	
+	  @Min(0)
+	  @Max(5)
 	private Float rating;
 
-	// @NotBlank
+	 //@NotBlank
 	private String releasedYear;
 
-	// @NotBlank
+	 @NotBlank
 	private String language;
 
 	private String poster;
 		
 	private long userid;
 	
-
+	@Size(min = 2, max = 15)
+	private String actor;
 	
-	private List<Long> actors;
+	@Size(min = 2, max = 15)
+	private String actress;
+	
+	@Size(min = 2, max = 15)
+	private String musicDirecter;
+	
+	
+
+
+
+	@Size(min = 2, max = 15)
+	private String Directer;
+	
+	//private List<Long> actors;
 
 	public RequestCinema() {
 		super();
@@ -81,15 +99,78 @@ public class RequestCinema {
 	}
 
 
-
-	public List<Long> getActors() {
-		return actors;
+	/**
+	 * @return the actor
+	 */
+	public String getActor() {
+		return actor;
 	}
 
 
-	public void setActors(List<Long> actors) {
-		this.actors = actors;
+	/**
+	 * @return the actress
+	 */
+	public String getActress() {
+		return actress;
 	}
+
+
+	/**
+	 * @return the musicDirecter
+	 */
+	public String getMusicDirecter() {
+		return musicDirecter;
+	}
+
+
+	/**
+	 * @return the directer
+	 */
+	public String getDirecter() {
+		return Directer;
+	}
+
+
+	/**
+	 * @param actor the actor to set
+	 */
+	public void setActor(String actor) {
+		this.actor = actor;
+	}
+
+
+	/**
+	 * @param actress the actress to set
+	 */
+	public void setActress(String actress) {
+		this.actress = actress;
+	}
+
+
+	
+	public void setMusicDirecter(String musicDirecter) {
+		this.musicDirecter = musicDirecter;
+	}
+
+
+	
+	public void setDirecter(String directer) {
+		Directer = directer;
+	}
+
+
+	public RequestCinema(@Size(min = 2, max = 15) String actor, @Size(min = 2, max = 15) String actress,
+			@Size(min = 2, max = 15) String musicDirecter, @Size(min = 2, max = 15) String directer) {
+		super();
+		this.actor = actor;
+		this.actress = actress;
+		this.musicDirecter = musicDirecter;
+		Directer = directer;
+	}
+
+
+
+
 
 	
 }

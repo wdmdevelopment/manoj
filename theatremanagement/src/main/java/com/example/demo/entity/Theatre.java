@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "THEATRE")
 public class Theatre {
@@ -32,12 +34,16 @@ public class Theatre {
 	@Column(name = "NUMBER_OF_ROWS")
 	private long numberofrows;
 	
+	
+	
 	@Column(name = "NUMBER_OF_SEATS")
 	private long numberofseats;
 	
 	 
 	//
-	@OneToMany(mappedBy = "theatrename",cascade = CascadeType.ALL,  fetch = FetchType.LAZY, orphanRemoval = true)
+	//@OneToMany(mappedBy = "theatrename",cascade = CascadeType.ALL,  fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "theatrename")
+	//@JsonIgnore
 	private List<ShowDetails> listOfShow;
 	
 	
@@ -70,13 +76,13 @@ public class Theatre {
 		this.address = address;
 	}
 
-	public List<ShowDetails> getListOfShow() {
-		return listOfShow;
-	}
-
-	public void setListOfShow(List<ShowDetails> listOfShow) {
-		this.listOfShow = listOfShow;
-	}
+//	public List<ShowDetails> getListOfShow() {
+//		return listOfShow;
+//	}
+//
+//	public void setListOfShow(List<ShowDetails> listOfShow) {
+//		this.listOfShow = listOfShow;
+//	}
 
 //	public Theatre(String theatrename, Address address, List<ShowDetails> listOfShow) {
 //		super();
@@ -105,6 +111,20 @@ public class Theatre {
 
 	public void setNumberofseats(long numberofseats) {
 		this.numberofseats = numberofseats;
+	}
+
+	/**
+	 * @return the listOfShow
+	 */
+	public List<ShowDetails> getListOfShow() {
+		return listOfShow;
+	}
+
+	/**
+	 * @param listOfShow the listOfShow to set
+	 */
+	public void setListOfShow(List<ShowDetails> listOfShow) {
+		this.listOfShow = listOfShow;
 	}
 
 	

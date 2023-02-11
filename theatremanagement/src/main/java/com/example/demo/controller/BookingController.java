@@ -28,7 +28,7 @@ import com.example.demo.service.BookingService;
 public class BookingController {
 
 	@Autowired
-	BookingService bookingService;
+	BookingService bookingService; 
 
 	private static final Logger logger = LoggerFactory.getLogger(TheatreController.class);
 

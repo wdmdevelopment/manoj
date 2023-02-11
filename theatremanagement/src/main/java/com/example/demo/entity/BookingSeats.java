@@ -43,4 +43,9 @@ public class BookingSeats {
 	}
 
 
+	public static void main(String[] args) {
+		
+	}
+
+
 }

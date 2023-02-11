@@ -18,8 +18,13 @@ public class ActorsServiceImpl implements ActorsService{
 	public Actors saveActors(RequestActors actors) {
 		
 		Actors obj = new Actors();
-		obj.setName(actors.getName());
-		obj.setRole(actors.getRole());
+		obj.setActor(actors.getActor());
+		obj.setActress(actors.getActress());
+		obj.setDirecter(actors.getDirecter());
+		obj.setMusicDirecter(actors.getMusicDirecter());
+		obj.setReleasedYear(actors.getReleasedYear());
+//		obj.setName(actors.getName());
+//		obj.setRole(actors.getRole());
 		return actorsRepository.save(obj);
 	}
 

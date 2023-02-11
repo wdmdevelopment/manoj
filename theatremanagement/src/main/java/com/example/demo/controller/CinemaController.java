@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Cinema;
+import com.example.demo.entity.Theatre;
 import com.example.demo.model.RequestCinema;
 import com.example.demo.service.CinemaService;
 
@@ -40,9 +41,10 @@ public class CinemaController {
 		logger.info("creat Cinema");
 
 		Cinema thacinema = cinemaService.savecinema(cinema);
-		if (thacinema == null) {
-			return ResponseEntity.notFound().build();
-		}
+		 
+//		if (thacinema == null) {
+//			return ResponseEntity.notFound().build();
+//		}
 		return ResponseEntity.ok().body(thacinema);
 	}
 
@@ -60,10 +62,10 @@ public class CinemaController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cinema> updateCinema(@Valid @PathVariable long id, @RequestBody RequestCinema requestCinema,
-			@RequestParam("user") long userid) {
+	public ResponseEntity<Cinema> updateCinema(@Valid @PathVariable long id, @RequestBody RequestCinema requestCinema
+			) {
 		logger.info("update a cinema");
-		Cinema newcinema = cinemaService.updateCinema(id, requestCinema, userid);
+		Cinema newcinema = cinemaService.updateCinema(id, requestCinema);
 		if (newcinema == null) {
 			return ResponseEntity.notFound().build();
 		}
@@ -79,5 +81,19 @@ public class CinemaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 
 	}
+	
+	
+	@GetMapping("/searchbycinemaname")
+	public ResponseEntity<List<Cinema>> getCinemaByName(@RequestParam("movieName") String name) {
+		logger.info("get a theatre");
+		List<Cinema> theCinema = cinemaService.findByCinema(name);
+
+		if (theCinema == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(theCinema);
+
+	}
+	
 
 }
