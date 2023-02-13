@@ -49,23 +49,38 @@
      if(email == ''){
      $('#emailError').text('This field is required');
      return false;
-     }
+     }else {
+
+        $('#emailError').empty();
+            }
+
      if(email != "") {
      if(!email_regex.test(email)){
      $('#emailError').text('The e-mail address entered is invalid.');
      return false;
+     }else {
+
+    $('#emailError').empty();
+    }
      }
-     }
+
+
      var pass = jQuery.trim($("#txt_pwd").val());
      if(pass == ''){
      $('#passError').text('This field is required');
      return false;
-     }
+     }else {
+
+        $('#passError').empty();
+    }
      if(pass != "") {
      if(!password_regex.test(pass)){
      $('#passError').text('The password entered is invalid.');
      return false;
-     }
+     }else {
+
+        $('#passError').empty();
+    }
      }
 
 
@@ -73,7 +88,10 @@
      if(!email_regex.test(email)){
      $('#emailError').text('The e-mail address entered is invalid.');
      return false;
-     }
+     }else {
+
+        $('#passError').empty();
+    }
      }
 
 

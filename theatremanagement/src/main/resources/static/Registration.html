@@ -83,6 +83,9 @@
             if (fname == '') {
                 $('#fnameError').text('This field is required');
                 return false;
+            }else {
+
+            $('#fnameError').empty();
             }
 
             // if(fname != "") {
@@ -98,6 +101,9 @@
             if (lname == '') {
                 $('#lnameError').text('This field is required');
                 return false;
+            }else {
+
+            $('#lnameError').empty();
             }
 
             // if(lname != "") {
@@ -111,13 +117,19 @@
                 if (email == '') {
                 $('#emailError').text('This field is required');
                 return false;
+                    }else {
+
+                $('#emailError').empty();
                     }
 
             if (email != "") {
                 if (!email_regex.test(email)) {
                     $('#emailError').text('The e-mail address entered is invalid.');
                     return false;
-                }
+                }else {
+
+                    $('#emailError').empty();
+                  }
             }
            
 
@@ -125,12 +137,18 @@
             if (pass == '') {
                 $('#passError').text('This field is required');
                 return false;
-            }
+            }else {
+
+            $('#passError').empty();
+             }
             
             if (pass != "") {
                 if (!paswd_regex.test(pass)) {
                     $('#passError').text('The password entered is invalid.');
                     return false;
+                }else {
+
+                $('#passError').empty();
                 }
             }
 
@@ -139,12 +157,21 @@
             if (number == '') {
                 $('#numError').text('This field is required');
                 return false;
-                     }
+                     }else {
+
+            $('#numError').empty();
+                 }
+
+
+
             if (number != "") {
                 if (!number_regex.test(number)) {
                     $('#numError').text('The number entered is invalid.');
                     return false;
-                }
+                }else {
+
+            $('#numError').empty();
+          }
             }
 
 
