@@ -1,5 +1,6 @@
 package com.example.demo.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Booking;
+import com.example.demo.entity.BookingSeats;
 import com.example.demo.entity.Cinema;
 import com.example.demo.entity.ShowDetails;
 import com.example.demo.entity.Theatre;
@@ -16,6 +18,7 @@ import com.example.demo.exceptionhandler.TheatreNotFoundException;
 import com.example.demo.exceptionhandler.UserNotAllowedException;
 import com.example.demo.model.RequestBooking;
 import com.example.demo.repository.BookingRepository;
+import com.example.demo.repository.BookingSetsRepository;
 import com.example.demo.repository.CinemaRepository;
 import com.example.demo.repository.ShowRepository;
 import com.example.demo.repository.TheatreRepository;
@@ -39,31 +42,54 @@ public class BookingServiceImpl implements BookingService {
 
 	@Autowired
 	ShowRepository showDetailsidRepository;
+	@Autowired
+	BookingSetsRepository bookingSetsRepository;
 
 	@Override
-	public Booking savebooking(RequestBooking booking, long userid) {
+	public Booking savebooking(RequestBooking booking) {
 
-		User findById = userRepository.findById(userid).orElseThrow(() -> new TheatreNotFoundException("" + userid));
-		String getuserRoll = findById.getRole();
-		if (getuserRoll.equalsIgnoreCase("admin")) {
+		User findById = userRepository.findById(booking.getUser_id()).orElseThrow(() -> new UserNotAllowedException(""));
+		//String getuserRoll = findById.getRole();
+		//if (getuserRoll.equalsIgnoreCase("user")) {
 
-			Cinema obj = cinemaRepository.findById(userid).orElseThrow(() -> new TheatreNotFoundException("" + userid));
+			Cinema obj = cinemaRepository.findById(booking.getCinemaId()).orElseThrow(() -> new NotFoundException(""));
 
-			Theatre ob1 = theatreRepository.findById(userid)
-					.orElseThrow(() -> new TheatreNotFoundException("" + userid));
+			Theatre ob1 = theatreRepository.findById(booking.getTheatreId())
+					.orElseThrow(() -> new TheatreNotFoundException(""));
 
-			ShowDetails obj2 = showDetailsidRepository.findById(userid)
-					.orElseThrow(() -> new TheatreNotFoundException("" + userid));
-
+			ShowDetails obj2 = showDetailsidRepository.findById(booking.getShowDetailsid())
+					.orElseThrow(() -> new NotFoundException("" ));
+			
 			Booking booking1 = new Booking();
-
+			booking1.setUser(findById);
 			booking1.setCinema(obj);
 			booking1.setShowdetails(obj2);
 			booking1.setTheatre(ob1);
-			return bookingrepository.save(booking1);
-		} else {
-			throw new UserNotAllowedException("admin only allowed");
-		}
+			
+			
+			booking1 = bookingrepository.save(booking1);
+			
+			ArrayList<BookingSeats> list = new ArrayList<>();
+			
+			for (Integer seats : booking.getSeatNumber()) {
+				
+			
+			BookingSeats book = new BookingSeats();
+			
+			book.setBooking(booking1);
+			book.setSeatNumber(seats);
+			
+			list.add(book);
+			}
+			
+			
+			bookingSetsRepository.saveAll(list);
+			return booking1;
+			
+			
+//		} else {
+//			throw new UserNotAllowedException("admin only allowed");
+//		}
 
 	}
 

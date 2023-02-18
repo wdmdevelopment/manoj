@@ -29,6 +29,14 @@ public class ShowDetails {
 	@Column(name = "show_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@Column(name = "showTime")
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+	
+	private String showTime;
+	
+	//@DateTimeFormat(pattern = "MM/DD/YYYY")
+	@Column(name = "date")
+	private String date;
 	
 	//(cascade = CascadeType.ALL)
 	@ManyToOne
@@ -42,14 +50,7 @@ public class ShowDetails {
 	private Cinema cinema;
 
 	
-	@Column(name = "showTime")
-	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
 	
-	private String showTime;
-	
-	//@DateTimeFormat(pattern = "MM/DD/YYYY")
-	@Column(name = "date")
-	private String date;
 	
 	
 

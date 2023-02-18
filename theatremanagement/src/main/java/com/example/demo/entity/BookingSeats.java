@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -20,7 +21,9 @@ public class BookingSeats {
 	@Column(name="SEAT_ID")
 	private long seat_id;
 	
-	@ManyToOne//map
+	private Integer seatNumber;
+	
+	@ManyToOne	
 	private Booking booking;
 	
 	public long getSeat_id() {
@@ -45,6 +48,16 @@ public class BookingSeats {
 
 	public static void main(String[] args) {
 		
+	}
+
+
+	public Integer getSeatNumber() {
+		return seatNumber;
+	}
+
+
+	public void setSeatNumber(Integer seatNumber) {
+		this.seatNumber = seatNumber;
 	}
 
 

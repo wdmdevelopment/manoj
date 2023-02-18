@@ -33,9 +33,9 @@ public class BookingController {
 	private static final Logger logger = LoggerFactory.getLogger(TheatreController.class);
 
 	@PostMapping
-	public ResponseEntity<Booking> savebooking(@RequestBody RequestBooking booking, @RequestParam("user") long userid) {
+	public ResponseEntity<Booking> savebooking(@RequestBody RequestBooking booking) {
 		logger.info("creat Booking");
-		return new ResponseEntity<>(bookingService.savebooking(booking, userid), HttpStatus.OK);
+		return new ResponseEntity<>(bookingService.savebooking(booking), HttpStatus.OK);
 	}
 
 	@GetMapping("/getAllBooking")
@@ -51,7 +51,7 @@ public class BookingController {
 			obj1.getCinemaId();
 			obj1.getShowDetailsid();
 			obj1.getTheatreId();
-
+			//obj1.getTheatreId();
 			obj.add(obj1);
 		}
 

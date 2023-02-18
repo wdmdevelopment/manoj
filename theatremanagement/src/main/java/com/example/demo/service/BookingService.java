@@ -10,7 +10,7 @@ import com.example.demo.model.RequestBooking;
 @Service
 public interface BookingService {
 
-	public Booking savebooking(RequestBooking booking,long userid);
+	public Booking savebooking(RequestBooking booking);
 
 	public List<Booking> getAllBooking();
 

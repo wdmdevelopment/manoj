@@ -12,7 +12,7 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long>
 
 {
 	
-	@Query(value = "SELECT * FROM testproject.cinema WHERE movie_name LIKE %:movieName%", nativeQuery = true)
+	@Query(value = "SELECT * FROM cinema WHERE movie_name LIKE %:movieName%", nativeQuery = true)
 	public List<Cinema> findByCinema(String movieName);
 	
 	

@@ -65,16 +65,22 @@ $(document).ready(function(){
               </li>
               
              
-        
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="username" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#" id="but_submit">logout</a>
+                </div>
+              </li>
 
-              <div class="dropdown">
+              <!-- <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <span id="username"></span>
                 </button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#" id="but_submit">logout</a></li>
                 </ul>
-              </div>
+              </div> -->
 
             </ul>
           </div>
@@ -84,9 +90,9 @@ $(document).ready(function(){
 
 		<div class="container  min-vh-10 py-4  mt-5">
             <div class="row">
-                <div class="col-md-5 mx-auto">
+                <div class="col-md-12 mx-auto">
                     <div class="input-group">
-                        <input   class="form-control border-end-0 border rounded-pill theatreshow" type="search"    id="example-search" onkeyup="searchCinema()" placeholder="movie">
+                        <input  class="form-control border-end-0 border rounded-pill theatreshow " type="search"    id="example-search" onkeyup="searchCinema()" placeholder="Search movie...">
 
                         <span class="input-group-append">        
                        </span>
@@ -149,42 +155,84 @@ $(document).ready(function(){
 	location.replace("/")
 
 		});
+   // getCnema("");
+
+
     });
 	
+
+
+    function getCnema(searchText){
+      var url = "";
+      if(searchText !== ""){
+        url = "http://localhost:8080/cinema/searchbycinemaname?movieName="+$ ("#example-search").val();
+      } else {
+        url = "http://localhost:8080/cinema";
+      }
+
+
+      $.ajax({
+                dataTypa: "JSON",
+                url: url,
+             
+                type:"GET",
+               
+              success: function (responseText) {
+                var text="";
+                $("#mydd1").empty();
+               
+                $.each(responseText, function (index, item ) {
+            
+                    text = text + '<div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 200px; height: 300px; alt="..."><div class="card-body">' ;
+
+            if(localStorage.getItem('role') == 'admin'){
+              text = text +  '<button class="btn btn-outline-success me-md-4" style="padding-right:5%" type="button" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
+                     } else {
+                      text = text +  '<button class="btn btn-outline-warning" type="button" id="BOOKING">BOOKING</button>'; 
+                     }
+                     text = text + '</div></div>';
+             });
+                   $("#mydd1").empty();
+                  $("#mydd1").append(text);
+
+              }
+            });
+    }
+
 
 
     function searchCinema(){
 
         
-
+      getCnema($ ("#example-search").val());
       
 
-        $.ajax({
-                dataTypa: "JSON",
-                url: "http://localhost:8080/cinema/searchbycinemaname?movieName="+$ ("#example-search").val(),
+        // $.ajax({
+        //         dataTypa: "JSON",
+        //         url: "http://localhost:8080/cinema/searchbycinemaname?movieName="+$ ("#example-search").val(),
              
-                type:"GET",
+        //         type:"GET",
                
-              success: function (responseText) {
-                var is_Data23="";
-                $("#mydd1").empty();
+        //       success: function (responseText) {
+        //         var text="";
+        //         $("#mydd1").empty();
                
-                $.each(responseText, function (index, item ) {
+        //         $.each(responseText, function (index, item ) {
             
-                    is_Data23 = is_Data23 + '<div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 200px; height: 300px; alt="..."><div class="card-body">' ;
+        //             text = text + '<div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 200px; height: 300px; alt="..."><div class="card-body">' ;
 
-            if(localStorage.getItem('role') == 'admin'){
-                is_Data23 = is_Data23 +  '<button class="btn btn-outline-success me-md-4" style="padding-right:5%" type="button" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
-                     } else {
-                        is_Data23 = is_Data23 +  '<button class="btn btn-outline-warning" type="button" id="BOOKING">BOOKING</button>'; 
-                     }
-                     is_Data23 = is_Data23 + '</div></div>';
-             });
-                   // $("#mydd1").empty();
-                  $("#mydd1").append(is_Data23);
+        //     if(localStorage.getItem('role') == 'admin'){
+        //       text = text +  '<button class="btn btn-outline-success me-md-4" style="padding-right:5%" type="button" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
+        //              } else {
+        //               text = text +  '<button class="btn btn-outline-warning" type="button" id="BOOKING">BOOKING</button>'; 
+        //              }
+        //              text = text + '</div></div>';
+        //      });
+        //            $("#mydd1").empty();
+        //           $("#mydd1").append(text);
 
-              }
-            });
+        //       }
+        //     });
 
 
 

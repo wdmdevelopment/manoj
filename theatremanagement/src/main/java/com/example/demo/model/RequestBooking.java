@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.List;
 
 public class RequestBooking {
 	
@@ -10,6 +11,8 @@ public class RequestBooking {
 	private long showDetailsid;
 	
 	private long user_id;
+	
+	private List<Integer> seatNumber;
 
 	public long getTheatreId() {
 		return theatreId;
@@ -41,6 +44,16 @@ public class RequestBooking {
 
 	public long setShowDetailsid(long showDetailsid) {
 		return this.showDetailsid = showDetailsid;
+	}
+
+
+
+	public List<Integer> getSeatNumber() {
+		return seatNumber;
+	}
+
+	public void setSeatNumber(List<Integer> seatNumber) {
+		this.seatNumber = seatNumber;
 	}
 	
 
