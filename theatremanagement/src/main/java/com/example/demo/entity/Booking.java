@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "BOOKING")
 public class Booking {
@@ -30,16 +32,17 @@ public class Booking {
 	private Theatre theatre;
 
 	@OneToOne
+	
 	private ShowDetails showdetails;
 
 	@OneToOne
 	@JoinColumn(name = "cinema_id")
+	
 	private Cinema cinema;
 
-	@OneToMany
-	@JoinTable(name = "Booking_Seats_Map", joinColumns = { @JoinColumn(name = "BOOKING_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "SEAT_ID") })
-
+	@OneToMany(mappedBy = "booking", cascade = {CascadeType.PERSIST , CascadeType.MERGE})
+//	@JoinTable(name = "Booking_Seats_Map", joinColumns = { @JoinColumn(name = "BOOKING_ID") }, inverseJoinColumns = {
+//			@JoinColumn(name = "SEAT_ID") })
 	private List<BookingSeats> seats;
 	
 	

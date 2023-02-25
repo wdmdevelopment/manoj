@@ -12,6 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     <script src="https://kit.fontawesome.com/54e0ebeaef.js" crossorigin="anonymous"></script>
+
+    <!-- <link rel="stylesheet" href="./CSS/card.css"> -->
         <!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
          referrerpolicy="no-referrer" />
        
@@ -62,7 +64,7 @@
   }
   
   </style>
-<body>
+<body style="background-color: #083042;">
 
   <div id="placeholder">
 
@@ -81,15 +83,25 @@
     });
     </script> 
 
+<!-- 
+<div class="container  min-vh-10 py-4  mt-5">
+  <div class="row">
+      <div class="col-md-12 mx-auto">
+          <div class="input-group">
+              <input  class="form-control border-end-0 border rounded-pill theatreshow " type="search"    id="example-search" onkeyup="searchCinema()" placeholder="Search movie...">
+
+              <span class="input-group-append">        
+             </span>
+          </div>
+      </div>
+  </div>
+</div> -->
 
       <!-----Add moviex------------------------------------------------------------------------------------------------>
 
         
          
-       <div id="mydd1" >
-      
-        
-        </div>
+  
         
             
           
@@ -101,15 +113,27 @@
 
        
         
-     	
-		<div class="container mt-5">	
-      <div class="row row-cols-1 row-cols-md-3 g-4" id="mydd" >
+     	     
       
+        
+     <button type="button"  style="display:none;" onclick="manoj()" class="btn btn-primary admin" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">ADD CINEMA</button>
+
+	<!-- <div class="container mt-5">	
+      <div class="row row-cols-2 row-cols-md-3 g-4" id="mydd" >
+   
        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
        </div>
     </div>
-       </div>
-     </div>
+       </div> -->
+      
+       <div class="container mt-5">
+        <div class="row" id="mydd">
+    
+    
+        </div>
+      </div>
+   
+     <!-- </div> -->
 
 
  <!-----GET ALL MOVIES------------------------------------------------------------------------------------------------>   
@@ -119,55 +143,59 @@
 //     this.value = this.value.replace(/[^0-9\.]/g,'');
 // });
 
+if(localStorage.getItem("role")==="admin"){
+
+$(".admin").attr("style", "display:block");
+}
+
+
+
+// function searchCinema(){
+
+//   mano($ ("#example-search").val());
+
+// }
+
  
           function mano(){	
 
-
-           
-              
-
-
+      //       var url = "";
+      // if(searchText !== ""){
+      //   url = "http://localhost:8080/cinema/searchbycinemaname?movieName="+$ ("#example-search").val();
+      // } else {
+      //   url = "http://localhost:8080/cinema";
+      // }
 
             $.ajax({
                 dataTypa: "JSON",
-                url: "http://localhost:8080/cinema",
+                url: 'http://localhost:8080/cinema',
              
                 type:"GET",
                 
               success: function (responseText) {
               
                     var is_Data ="";
-                    var is_Data1 ="";
-                    
-                   // style="width: 250px; height: 300px;
-                    //style="padding-right:5%"
-                 
-                
-                    if(localStorage.getItem('role') == 'admin')
-                    is_Data1 = is_Data1 +'<button type="button"  onclick="manoj()" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">ADD CINEMA</button>';
-                    
-                    
+     
                 $.each(responseText, function (index, item ) {
-            
-                 is_Data = is_Data + '<div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 200px; height: 300px; alt="..."><div class="card-body">' ;
+                  
+                 is_Data = is_Data + '<div class="col-lg-3 col-md-4"><div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 220px; height: 300px; alt="..."><div class="card-body">' ;
 
 
 
                  if(localStorage.getItem('role') == 'admin'){
                     is_Data = is_Data +  '<button class="btn btn-outline-success me-md-4" style="padding-right:5%" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
                           } else {
-                            is_Data = is_Data +  '<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal56" onclick=bookingMovie('+item.id+') >BOOKING</button>'; 
+                            is_Data = is_Data +  '<div class="text-center"><button type="button" class="btn btn-outline-warning " data-bs-toggle="modal" data-bs-target="#exampleModal56" onclick=bookingMovie('+item.id+') >BOOKING</button></div>'; 
 
                           
                             //bookingMovie
                           }
-                          is_Data = is_Data + '</div></div>';
+                          is_Data = is_Data + '</div></div></div>';
                   });
                   
                   $("#mydd").empty();
                   $("#mydd").append(is_Data);	
-                  $("#mydd1").empty();
-                  $("#mydd1").append(is_Data1);
+                  
                 }	
               });
           }
@@ -192,36 +220,36 @@
 
 
 
-          function Theatre(){	
-            $.ajax({
-                dataTypa: "JSON",
-                url: "http://localhost:8080/Theatre",
+//           function Theatre(){	
+//             $.ajax({
+//                 dataTypa: "JSON",
+//                 url: "http://localhost:8080/Theatre",
              
-                type:"GET",
+//                 type:"GET",
                 
-              success: function (responseText) {
+//               success: function (responseText) {
               
-                    var is_Data ="";
+//                     var is_Data ="";
                 
-                $.each(responseText, function (index, item ) {
+//                 $.each(responseText, function (index, item ) {
             
-                 is_Data = is_Data + '<div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 200px; height: 300px; alt="..."><div class="card-body">' ;
+//                  is_Data = is_Data + '<div class="card" style="width: 14rem; "><img src="'+item.poster+'" class="card-img-top" style="width: 200px; height: 300px; alt="..."><div class="card-body">' ;
 
-                 if(localStorage.getItem('role') == 'admin'){
-                    is_Data = is_Data +  '<button class="btn btn-outline-success me-md-2" style="padding-right:5%" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
-                          }else{
-                            is_Data = is_Data +  '<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal5" >BOOKING</button>'; 
-
+//                  if(localStorage.getItem('role') == 'admin'){
+//                     is_Data = is_Data +  '<button class="btn btn-outline-success me-md-2" style="padding-right:5%" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="edit" onclick ="edit('+item.id+')">EDIT</button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="deleteCinema('+item.id+')">DELETE</button>';
+//                           }else{
+//                             is_Data = is_Data +  '<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal5" >BOOKING</button>'; 
+// z
                             
-                          }
-                          is_Data = is_Data + '</div></div>';
-                  });
+//                           }
+//                           is_Data = is_Data + '</div></div>';
+//                   });
                   
-                  $("#mydd").empty();
-                  $("#mydd").append(is_Data);	
-                }	
-              });
-          }
+//                   $("#mydd").empty();
+//                   $("#mydd").append(is_Data);	
+//                 }	
+//               });
+//           }
 
 
          ///<!-----GET ALL THEATRES------------------------------------------------------------------------------------------------>
@@ -412,10 +440,12 @@ console.log(e);
 });
 }
 
-
+var aa = "";
+var bb = "";
+var cc = "";
 function bookingMovie(id){
 
-
+   $.noConflict;
  
   $.ajax({
 		url: "http://localhost:8080/showDetails/cinemaId/"+id,
@@ -426,18 +456,19 @@ function bookingMovie(id){
 		console.log(responseText);
 			var bookingData ="";
 			var theatreData="";
+           aa  =  responseText.cinemaId;
 		  
                  bookingData +='<img class="card-img-top" src="'+responseText.poster+'" alt="Card image cap"/><h5 class="card-title text-center">'+responseText.movieName+'</h5> <div hidden><p  id="aaid">'+responseText.cinemaId+'</p></div> '
                 
                    $.each(responseText.theatres, function (index, item ) {
 				
-    
+                    bb = item.id;
 						theatreData +='<div class="card"><div class="row"><div class="col-lg-6"><div class="card-body" ><h5 class="card-title text-center">'+item.theatrename+'</h5><p class="card-title text-center">'+item.address.street+'</p><p class="card-title text-center">'+item.address.city+'</p><div hidden><p  id="bbid">'+item.id+'</p></div> </div></div>';
             
 						
 						$.each(item.listOfShow, function (indexes, show ) {
 				
-
+            cc = show.id;
 						theatreData +='<div class="col-lg-6"><div class="card-body" ><p class="card-title text-center">'+show.showTime+'</p><p class="card-title text-center">'+show.date+'</p><button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal100" data-bs-whatever="@mdo" onclick="go('+item.numberofrows+', '+item.numberofseats+')">BOOK</button><div hidden><p  id="ccid">'+show.id+'</p></div></div></div>';
            
 				 
@@ -453,7 +484,8 @@ function bookingMovie(id){
                 $("#movieBooking").empty();
                 $("#movieBooking").append(bookingData);
 			        	$("#theatreBooking").empty();
-                $("#theatreBooking").append(theatreData);				  
+                $("#theatreBooking").append(theatreData);			
+                $('.modal-backdrop').remove();	  
 },error: function (e) {
 console.log(e);
 }
@@ -511,6 +543,7 @@ console.log(e);
   var seat = "<i style='font-size:24px' class='fas'>&#xf6c0;</i>";
   var choosedSeats = [];
  function f(x, y, boookedSeats) {
+  $.noConflict;
  var rows = x,
    rowButtonNumber = y;
        let count = 0;
@@ -574,12 +607,28 @@ console.log(e);
  }
  
  function go(row,col) {
+  
+  $.ajax({
+  url: "http://localhost:8080/Booking/show/"+ cc,
+  type: "GET",
+  contentType: "application/json",
+  success: function (data) {
+    
+  console.log(data);
+  $.noConflict;
 console.log(row);
 console.log(col);
- var boookedSeats = [];
- boookedSeats.push(18);
- boookedSeats.push(15);
+ var boookedSeats = data;
  f(row, col, boookedSeats);
+
+  },error: function (e) {
+  console.log(e);
+  }
+  });
+
+
+
+ 
  }
  </script>
 <script> 
@@ -587,20 +636,20 @@ console.log(col);
   
   function Moviebooking(){
 
-   alert(document.getElementById("aaid").value) ;
- var cinemaId = $('#aaid').val();
- alert(cinemaId); 
- var theatresId = $('#bbid').val();
-
- var showId = $('#ccid').val();
-
+   //alert(document.getElementById("aaid").value) ;
+ var cinemaId = aa;
+   console.log(cinemaId);
+ var theatresId = bb;
+ console.log(theatresId);
+ var showId = cc;
+ console.log(showId);
 
   var bookingData={
     'cinemaId': cinemaId,
     'theatreId': theatresId,
     'showDetailsid': showId,
     'seatNumber':  choosedSeats,
-    'userid':localStorage.getItem('user')
+    'userId':localStorage.getItem('user')
   }
 
   console.log(bookingData);
@@ -610,6 +659,10 @@ console.log(col);
   data: JSON.stringify(bookingData),
   contentType: "application/json",
   success: function (data) {
+    alert("BOOKING SUCCESS");
+    aa.empty();
+    bb.empty();
+    cc.empty();
     
   console.log(data);
   },error: function (e) {
@@ -665,20 +718,20 @@ console.log(col);
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         
-                        <input type="text" id="movieName" class="form-control form-control-lg" placeholder="movieName"/>
+                        <input type="text" id="movieName" class="form-control form-control-lg" placeholder="MOVIENAME"/>
                       </div>
                     </div>
                     
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         
-                        <input type="text" id="movieName" class="form-control form-control-lg" placeholder="releasedYear"/>
+                        <input type="text" id="releasedYear" class="form-control form-control-lg" placeholder="RELEASED YEAR"/>
                       </div>
                     </div>
               <div class="col-md-6 mb-4">
                 <div class="form-outline">
                  
-                  <input type="text" id="poster" class="form-control form-control-lg" placeholder="poster"/>
+                  <input type="text" id="poster" class="form-control form-control-lg" placeholder="POSTER"/>
                   <div class="error" style="color: red;" id="emailError"></div>
                 </div>
             </div>
@@ -686,7 +739,7 @@ console.log(col);
             <div class="col-md-6 mb-4">
               <div class="form-outline">
                
-                <input type="text" id="language" class="form-control form-control-lg" placeholder="language"/>
+                <input type="text" id="language" class="form-control form-control-lg" placeholder="LANGUAGE"/>
               </div>
           </div>
 
@@ -695,35 +748,35 @@ console.log(col);
           <div class="col-md-6 mb-4">
             <div class="form-outline">
              
-              <input type="text" id="rating" class="form-control form-control-lg" placeholder="rating"/>
+              <input type="text" id="rating" class="form-control form-control-lg" placeholder="RATING"/>
             </div>
         </div>
 
         <div class="col-md-6 mb-4">
           <div class="form-outline">
-           
-            <input type="text" id="actor" class="form-control form-control-lg" placeholder="actor"/>
+           <label>
+            <input type="text" id="actor" class="form-control form-control-lg" placeholder="ACTOR"/>
           </div>
         </div>
 
         <div class="col-md-6 mb-4">
         <div class="form-outline">
          
-          <input type="text" id="actress" class="form-control form-control-lg" placeholder="actress"/>
+          <input type="text" id="actress" class="form-control form-control-lg" placeholder="ACTRESS"/>
          </div>
          </div>
 
          <div class="col-md-6 mb-4">
           <div class="form-outline">
            
-          <input type="text" id="musicDirecter" class="form-control form-control-lg" placeholder="musicDirecter"/>
+          <input type="text" id="musicDirecter" class="form-control form-control-lg" placeholder="MUSICDIRECTER"/>
            </div>
            </div>
 
            <div class="col-md-6 mb-4">
             <div class="form-outline">
              
-            <input type="text" id="directer" class="form-control form-control-lg" placeholder="directer"/>
+            <input type="text" id="directer" class="form-control form-control-lg" placeholder="DIRECTER"/>
             </div>
             </div>
            
@@ -734,13 +787,13 @@ console.log(col);
          
        
           <div class="modal-footer">
-            <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
             <button type="button" id="btnpost" hidden class="btn btn-primary" data-bs-dismiss="modal" >Summit</button>
-
+         
             <!-- <button type="button" id="btnpost" class="btn btn-primary"data-bs-dismiss="modal">Summit</button> -->
 
             <button data-bs-toggle="modal" hidden data-bs-target="#smallModel" type="button" id="update"
             class="btn btn-warning" onclick="putCinema()">Update</button>
+            <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
 
           </div>
         </div> 

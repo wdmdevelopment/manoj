@@ -22,7 +22,7 @@ public class Theatre {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
+	
 	private long id;
 
 	@Column(name = "THEATRENAME")
@@ -30,7 +30,7 @@ public class Theatre {
 	private String theatrename;
 
 	
-	
+	  
 	@Column(name = "NUMBER_OF_ROWS")
 	private long numberofrows;
 	

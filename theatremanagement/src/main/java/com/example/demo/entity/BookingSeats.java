@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -18,47 +20,53 @@ public class BookingSeats {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="SEAT_ID")
-	private long seat_id;
+	private long id;
 	
 	private Integer seatNumber;
 	
 	@ManyToOne	
+	@JsonIgnore
 	private Booking booking;
-	
-	public long getSeat_id() {
-		return seat_id;
+
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
 	}
 
-	
-	public void setSeat_id(long seat_id) {
-		this.seat_id = seat_id;
-	}
-
-	
-
-	public Booking getBooking() {
-		return booking;
-	}
-
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
-
-
-	public static void main(String[] args) {
-		
-	}
-
-
+	/**
+	 * @return the seatNumber
+	 */
 	public Integer getSeatNumber() {
 		return seatNumber;
 	}
 
+	/**
+	 * @return the booking
+	 */
+	public Booking getBooking() {
+		return booking;
+	}
 
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param seatNumber the seatNumber to set
+	 */
 	public void setSeatNumber(Integer seatNumber) {
 		this.seatNumber = seatNumber;
 	}
 
-
+	/**
+	 * @param booking the booking to set
+	 */
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
 }

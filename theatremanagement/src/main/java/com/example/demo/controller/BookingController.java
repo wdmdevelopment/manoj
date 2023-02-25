@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Booking;
+import com.example.demo.model.BookingResponce;
 import com.example.demo.model.RequestBooking;
 import com.example.demo.service.BookingService;
 
@@ -39,25 +40,8 @@ public class BookingController {
 	}
 
 	@GetMapping("/getAllBooking")
-	public List<RequestBooking> getAllBooking() {
-
-		List<Booking> allbooking = bookingService.getAllBooking();
-
-		List<RequestBooking> obj = new ArrayList<>();
-
-		for (Booking booking : allbooking) {
-			RequestBooking obj1 = new RequestBooking();
-			obj1.getUser_id();
-			obj1.getCinemaId();
-			obj1.getShowDetailsid();
-			obj1.getTheatreId();
-			//obj1.getTheatreId();
-			obj.add(obj1);
-		}
-
-		logger.info("get a availableBooking");
-		return obj;
-
+	public List<Booking> getAllBooking() {
+		return  bookingService.getAllBooking();
 	}
 
 	@GetMapping("/{id}")
@@ -79,6 +63,28 @@ public class BookingController {
 	public void deleteBooking(@PathVariable("id") long id) {
 		logger.info("delete a Booking");
 		bookingService.deleteBooking(id);
+
+	}
+	
+	@GetMapping("user/{id}")
+	public ResponseEntity<List<Booking>> getUserById(@PathVariable("id") long id) {
+		logger.info("get a Booking");
+		return new ResponseEntity<>(bookingService.findUser(id), HttpStatus.OK);
+
+	}
+	
+	@GetMapping("userBook/{id}")
+	public ResponseEntity<List<BookingResponce>> getUserByBooking(@PathVariable("id") long id) {
+		logger.info("get a Booking");
+		return new ResponseEntity<>(bookingService.findBookingDetails(id), HttpStatus.OK);
+
+	}
+	
+	
+	@GetMapping("show/{seatId}")
+	public ResponseEntity<List<Integer>> getSeatsByBookingAndShow(@PathVariable("seatId") long seatId) {
+		logger.info("get a Booking");
+		return new ResponseEntity<>(bookingService.getSeatsByBookingAndShow(seatId), HttpStatus.OK);
 
 	}
 

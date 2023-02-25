@@ -17,7 +17,7 @@
 <!-- fondasowesome PANAL -->
   <script src="https://kit.fontawesome.com/54e0ebeaef.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="background-color: #083042;">
 	
 	
 	<div id="nav-placeholder">
@@ -40,7 +40,82 @@
 	<!-- <div id="mydd" style="padding-top: 10rem;">
 
 	</div> -->
+ 
+  <button type="button" class="btn btn-primary admin" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" onclick="showHiden()">ADD THEATRE</button>
 
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center text-info" id="exampleModalLabel">ADD THEATRE</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+                       
+              <form>
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="Details"></label>
+                          <input type="text" id="theatrename" class="form-control form-control-lg" placeholder="theatrename"/>
+                      </div>
+                    </div>
+                     
+             
+              <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" ></label>
+                    <input type="text" id="city" class="form-control form-control-lg" placeholder="city"/>
+                  </div>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                 
+                  <input type="text" id="numberofrows" class="form-control form-control-lg" placeholder="numberofrows"/>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+              <div class="form-outline">
+               
+                <input type="text" id="street" class="form-control form-control-lg" placeholder="street"/>
+              </div>
+          </div>
+
+          
+
+          <div class="col-md-6 mb-4">
+            <div class="form-outline">
+             
+              <input type="text" id="numberofseats" class="form-control form-control-lg" placeholder="numberofseats"/>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+          <div class="form-outline">
+           
+            <input type="text" id="phoneNumber" class="form-control form-control-lg" placeholder="phoneNumber"/>
+          </div>
+      </div>
+
+            </div>
+            </form>
+         </div>   
+         
+         
+       
+          <div class="modal-footer">
+            <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            <button type="button" id="btnpost" hidden class="btn btn-primary"data-bs-dismiss="modal">Summit</button>
+
+            <button data-bs-toggle="modal" hidden data-bs-target="#smallModel" type="button" id="update"
+            class="btn btn-warning" onclick="putTheatre()">Update</button>
+          </div>
+        </div> 
+      </div>
+    </div>
 
   <div class="container mt-5">	
     <div class="row row-cols-1 row-cols-md-3 g-4" id="mydd" >
@@ -76,29 +151,29 @@ function getAllTheatre(){
               success: function (responseText) {
 				
                     var is_Data ="";
-                    var is_Data2 ="";
+                    //var is_Data2 ="";
 
-                    if(localStorage.getItem('role') == 'admin')
-                    is_Data2 = is_Data2 +'<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" onclick="showHiden()">ADD THEATRE</button>';
+                   // if(localStorage.getItem('role') == 'admin')
+                   // is_Data2 = is_Data2 +'<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" onclick="showHiden()">ADD THEATRE</button>';
 
 
                     // <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" id="edit" onclick ="edit('+item.id+')">
                  
                 $.each(responseText, function (index, item ) {
 
-                 is_Data += '<div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-body text-success"><div class="card-header"> ' +item.theatrename+'<p class="card-text">' +item.address.city+'</p><p class="card-text">' +item.address.state+'</p><p class="card-text">' +item.address.phoneNumber+'</p>' ;
-				 
+                 is_Data += '<div class="col-lg-3 col-md-4"><div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-body text-success"><div class="card-header"> ' +item.theatrename+'<p class="card-text">' +item.address.city+'</p><p class="card-text">' +item.address.phoneNumber+'</p>' ;
+                 // <p class="card-text">' +item.address.state+'</p>
                if(localStorage.getItem('role') == 'admin'){
-                   is_Data = is_Data +  '<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" id="edit" onclick ="edit('+item.id+')"><i class="fa-solid fa-pen"></i></button><button class="btn btn-outline-warning"  style="padding-right:10%" type="button" id="DELETE" onclick ="detetetheatre('+item.id+') "><i class="fa-regular fa-trash-can"></i></button><button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="findBytheatreid('+item.id+')">show</button>';
+                   is_Data = is_Data +  '<button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" id="edit" onclick ="edit('+item.id+')"><i class="fa-solid fa-pen"></i></button><button class="btn "  style="padding-right:10%" type="button" id="DELETE" onclick ="detetetheatre('+item.id+') "><i class="fa-regular fa-trash-can"></i></button><button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="findBytheatreid('+item.id+')">SHOW</button>';
                         }
 						  
-							is_Data = is_Data + '</div></div></div>';					 
+							is_Data = is_Data + '</div></div></div></div>';					 
                   });
                   
                  $("#mydd").empty();
                   $("#mydd").append(is_Data);
-                 $("#addshows").empty();
-                  $("#addshows").append(is_Data2);
+                 //$("#addshows").empty();
+                 // $("#addshows").append(is_Data2);
 									  
                 }	
                
@@ -367,7 +442,10 @@ console.log(e);
 
 
 
+if(localStorage.getItem("role")==="admin"){
 
+$(".admin").attr("style", "display:block");
+}
 
 
 </script>
@@ -457,83 +535,7 @@ console.log(e);
  <!-- ------------------------------SHOWS--------------------------------------------- -->
  <!-- Button trigger modal -->
  
-  
- <div id="addshows">  
-  
- </div>
-  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-center text-info" id="exampleModalLabel">ADD THEATRE</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-                       
-              <form>
-                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="Details"></label>
-                          <input type="text" id="theatrename" class="form-control form-control-lg" placeholder="theatrename"/>
-                      </div>
-                    </div>
-                     
-             
-              <div class="col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" ></label>
-                    <input type="text" id="city" class="form-control form-control-lg" placeholder="city"/>
-                  </div>
-              </div>
-
-              <div class="col-md-6 mb-4">
-                <div class="form-outline">
-                 
-                  <input type="text" id="numberofrows" class="form-control form-control-lg" placeholder="numberofrows"/>
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-4">
-              <div class="form-outline">
-               
-                <input type="text" id="street" class="form-control form-control-lg" placeholder="street"/>
-              </div>
-          </div>
-
-          
-
-          <div class="col-md-6 mb-4">
-            <div class="form-outline">
-             
-              <input type="text" id="numberofseats" class="form-control form-control-lg" placeholder="numberofseats"/>
-            </div>
-        </div>
-
-        <div class="col-md-6 mb-4">
-          <div class="form-outline">
-           
-            <input type="text" id="phoneNumber" class="form-control form-control-lg" placeholder="phoneNumber"/>
-          </div>
-      </div>
-
-            </div>
-            </form>
-         </div>   
-         
-         
-       
-          <div class="modal-footer">
-            <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-            <button type="button" id="btnpost" hidden class="btn btn-primary"data-bs-dismiss="modal">Summit</button>
-
-            <button data-bs-toggle="modal" hidden data-bs-target="#smallModel" type="button" id="update"
-            class="btn btn-warning" onclick="putTheatre()">Update</button>
-          </div>
-        </div> 
-      </div>
-    </div>
+ 
   
   
   

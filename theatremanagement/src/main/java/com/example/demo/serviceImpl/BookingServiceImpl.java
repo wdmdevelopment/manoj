@@ -1,8 +1,10 @@
 package com.example.demo.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import com.example.demo.entity.User;
 import com.example.demo.exceptionhandler.NotFoundException;
 import com.example.demo.exceptionhandler.TheatreNotFoundException;
 import com.example.demo.exceptionhandler.UserNotAllowedException;
+import com.example.demo.model.BookingResponce;
 import com.example.demo.model.RequestBooking;
 import com.example.demo.repository.BookingRepository;
 import com.example.demo.repository.BookingSetsRepository;
@@ -48,7 +51,7 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public Booking savebooking(RequestBooking booking) {
 
-		User findById = userRepository.findById(booking.getUser_id()).orElseThrow(() -> new UserNotAllowedException(""));
+		User findById = userRepository.findById(booking.getUserId()).orElseThrow(() -> new UserNotAllowedException(""));
 		//String getuserRoll = findById.getRole();
 		//if (getuserRoll.equalsIgnoreCase("user")) {
 
@@ -67,30 +70,19 @@ public class BookingServiceImpl implements BookingService {
 			booking1.setTheatre(ob1);
 			
 			
-			booking1 = bookingrepository.save(booking1);
-			
-			ArrayList<BookingSeats> list = new ArrayList<>();
+			List<BookingSeats> list = new ArrayList<>();
 			
 			for (Integer seats : booking.getSeatNumber()) {
-				
-			
-			BookingSeats book = new BookingSeats();
-			
-			book.setBooking(booking1);
-			book.setSeatNumber(seats);
-			
-			list.add(book);
+				BookingSeats book = new BookingSeats();
+				book.setBooking(booking1);
+				book.setSeatNumber(seats);
+				list.add(book);
 			}
 			
+			booking1.setSeats(list);
 			
-			bookingSetsRepository.saveAll(list);
-			return booking1;
+			return bookingrepository.save(booking1);
 			
-			
-//		} else {
-//			throw new UserNotAllowedException("admin only allowed");
-//		}
-
 	}
 
 	@Override
@@ -151,6 +143,64 @@ public class BookingServiceImpl implements BookingService {
 			throw new NotFoundException("Id not present");
 		}
 
+	}
+
+	@Override
+	public List<Booking> findUser(long id) {
+		
+		 List<Booking> listBooking= bookingrepository.findByUser_id(id);
+
+		return listBooking;
+		
+	}
+	
+	
+	public List<BookingResponce> findBookingDetails(long id) {
+		
+		 List<Booking> listBooking= bookingrepository.findByUser_id(id);
+		 
+		 List<BookingResponce> booked =new ArrayList<>();
+		 for(Booking b:listBooking) {
+			 BookingResponce book =new BookingResponce();
+			 book.setPoster(b.getCinema().getPoster());
+			// theatreName
+			
+			 book.setMovieName(b.getCinema().getMovieName());
+			 book.setCity(b.getTheatre().getAddress().getCity());
+			 book.setState(b.getTheatre().getAddress().getState());
+			 book.setNumber(b.getTheatre().getAddress().getPhoneNumber());
+			 book.setSeatNo(b.getSeats());
+			 book.setShowDate(b.getShowdetails().getDate());
+			 book.setShowTime(b.getShowdetails().getShowTime());
+			 book.setTheatreName(b.getTheatre().getTheatrename());
+			 
+			 booked.add(book);
+			 
+		 }
+		 
+		 
+		 
+		return booked;
+		 
+		 
+
+		
+		
+	}
+	
+	
+	public List<Integer> getSeatsByBookingAndShow(long showId) {
+		List<Integer> seats = new ArrayList<>();
+		Optional<ShowDetails> optional = showDetailsidRepository.findById(showId);
+		if(optional.isPresent()) {
+			List<Booking> listBooking= bookingrepository.findByShowdetailsId(showId);
+			
+			for (Booking booking : listBooking) {
+				List<Integer> list =  booking.getSeats().stream().map(e -> e.getSeatNumber()).collect(Collectors.toList());
+				seats.addAll(list);
+			}
+		}
+		return seats;
 	}
 
 }

@@ -10,7 +10,7 @@ public class RequestBooking {
 	
 	private long showDetailsid;
 	
-	private long user_id;
+	private long userId;
 	
 	private List<Integer> seatNumber;
 
@@ -30,12 +30,19 @@ public class RequestBooking {
 		return this.cinemaId = cinemaId;
 	}
 
-	public long getUser_id() {
-		return user_id;
+	
+	/**
+	 * @return the userId
+	 */
+	public long getUserId() {
+		return userId;
 	}
 
-	public long setUser_id(long user_id) {
-		return this.user_id = user_id;
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public long getShowDetailsid() {
