@@ -1,13 +1,13 @@
+package com.bezkoder.springjwt;
 
-package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TheatreManagementApplication {
+public class SpringBootSecurityJwtApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TheatreManagementApplication.class, args);
+    SpringApplication.run(SpringBootSecurityJwtApplication.class, args);
 	}
-		
+
 }
