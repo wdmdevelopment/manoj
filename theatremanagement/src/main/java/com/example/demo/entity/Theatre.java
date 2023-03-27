@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -42,8 +44,10 @@ public class Theatre {
 	 
 	//
 	//@OneToMany(mappedBy = "theatrename",cascade = CascadeType.ALL,  fetch = FetchType.LAZY, orphanRemoval = true)
-	@OneToMany(mappedBy = "theatrename")
-	//@JsonIgnore
+	
+	
+	@OneToMany(mappedBy = "theatrename", cascade = CascadeType.ALL, orphanRemoval = true)
+	  
 	private List<ShowDetails> listOfShow;
 	
 	

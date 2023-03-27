@@ -1,22 +1,24 @@
 package com.example.demo.model;
 
 public class RequestLogin {
-	
-	private String pass;
-	
-	private String email;
-	
-	public String getPass() {
-		return pass;
+	private String username;
+
+	private String password;
+
+	public String getPassword() {
+		return password;
 	}
-	public void setPass(String pass) {
-		this.pass = pass;
+
+	public String getUsername() {
+		return username;
 	}
-	public String getEmail() {
-		return email;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

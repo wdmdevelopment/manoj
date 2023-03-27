@@ -38,7 +38,7 @@ public class ShowDetails {
 	@Column(name = "date")
 	private String date;
 	
-	//(cascade = CascadeType.ALL)
+	
 	@ManyToOne
 	@JoinColumn(name = "theatre_id", referencedColumnName = "id")
 	@JsonIgnore

@@ -9,6 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +23,39 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.entity.User;
+import com.example.demo.exceptionhandler.NotFoundException;
 import com.example.demo.model.RequestLogin;
 import com.example.demo.model.RequestUser;
+import com.example.demo.payload.response.JwtResponse;
+import com.example.demo.payload.response.MessageResponse;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.security.security.jwt.JwtUtils;
+import com.example.demo.security.service.UserDetailsImpl;
 import com.example.demo.service.UserService;
 
+//@RequestMapping("/user")
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/user")
-@CrossOrigin
+@RequestMapping("/api/auth")
 public class UserController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	AuthenticationManager authenticationManager;
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	PasswordEncoder encoder;
+
+	@Autowired
+	JwtUtils jwtUtils;
 
 	private static final Logger logger = LoggerFactory.getLogger(TheatreController.class);
 
@@ -78,11 +103,68 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 
 	}
-	
-	@PostMapping("/login")
-	public ResponseEntity<User> login(RequestLogin loginRequest) {
-		logger.info("login User");
-		return new ResponseEntity<>(userService.login(loginRequest.getEmail(), loginRequest.getPass()), HttpStatus.OK);
 
-}
+//	@PostMapping("/login")
+//	public ResponseEntity<User> login(RequestLogin loginRequest) {
+//		logger.info("login User");
+//		return new ResponseEntity<>(userService.login(loginRequest.getUsername(), loginRequest.getPassword()), HttpStatus.OK);
+//
+//	}
+
+	@PostMapping("/signin")
+	public ResponseEntity<?> authenticateUser(@RequestBody RequestLogin loginRequest) {
+
+		System.out.println(authenticationManager + "===========================================================>");
+
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+		System.out.println(authentication + "---------------------------------------->");
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		String jwt = jwtUtils.generateJwtToken(authentication);
+		System.out.println(jwt);
+
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+		return ResponseEntity
+				.ok(new JwtResponse(jwt, userDetails.getId(),
+						userDetails.getUsername(), userDetails.getEmail(),userDetails.getRole()));
+	}
+
+	@PostMapping("/signup")
+	public ResponseEntity<?> registerUser(@Valid @RequestBody RequestUser signUpRequest) {
+		logger.info("User Register username={}", signUpRequest.getUserName());
+		try {
+		if (userRepository.existsByUserName(signUpRequest.getUserName())) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+		}
+
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+		}
+
+		// Create new user's account
+
+			User user = new User();
+			user.setEmail(signUpRequest.getEmail());
+			user.setMobile(signUpRequest.getMobile());
+			user.setPassword(encoder.encode(signUpRequest.getPassword()));
+			user.setRole(signUpRequest.getRole());
+			user.setUserName(signUpRequest.getUserName());
+//		User user = new User(signUpRequest.getUserName(), signUpRequest.getEmail(),
+//				encoder.encode(signUpRequest.getPassword()));
+
+		userRepository.save(user);
+		
+		 
+
+		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		}
+		catch (Exception e) {
+			 throw new NotFoundException(e.getMessage());
+		}
+	}
+
 }

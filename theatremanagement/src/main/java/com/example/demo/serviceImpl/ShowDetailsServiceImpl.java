@@ -139,11 +139,9 @@ public class ShowDetailsServiceImpl implements ShowDetailsService {
 			t.setListOfShow(collect);
 		}
 		
-		
 		show.setCinemaId(cinema.getId());
 		show.setMovieName(cinema.getMovieName());
-		show.setPoster(cinema.getPoster());
-		
+		show.setPoster(cinema.getPoster());		
 		show.setTheatres(theaters);
 		
 //		List<ResponseShowDetails> lst = new ArrayList<>();

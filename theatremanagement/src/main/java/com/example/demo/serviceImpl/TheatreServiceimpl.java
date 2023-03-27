@@ -61,13 +61,13 @@ public class TheatreServiceimpl implements TheatreService {
 
 	public Theatre updateTheatre(long id, RequestTheatre requestTheatre) {
 
-		User findById = userRepository.findById(requestTheatre.getUserid()).orElseThrow(() -> new TheatreNotFoundException("" + id));
+//		User findById = userRepository.findById(requestTheatre.getUserid()).orElseThrow(() -> new TheatreNotFoundException("dggdgd" + id));
 
-		String getuserRoll = findById.getRole();
+//		String getuserRoll = findById.getRole();
 
 		Theatre obj = null;
 
-		if (getuserRoll.equalsIgnoreCase("admin") ) {
+//		if (getuserRoll.equalsIgnoreCase("admin") ) {
 
 			obj = theatreRepository.findById(id).orElseThrow(() -> new TheatreNotFoundException("" + id));
 
@@ -81,9 +81,9 @@ public class TheatreServiceimpl implements TheatreService {
 			obj.setNumberofseats(requestTheatre.getNumberofseats());
 			obj.setAddress(address);
 
-		} else {
-			throw new UserNotAllowedException("admin only allowed");
-		}
+//		} else {
+//			throw new UserNotAllowedException("admin only allowed");
+//		}
 		return theatreRepository.save(obj);
 	}
 

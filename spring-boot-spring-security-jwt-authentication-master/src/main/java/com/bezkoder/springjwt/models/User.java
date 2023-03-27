@@ -1,8 +1,4 @@
 package com.bezkoder.springjwt.models;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -31,8 +27,6 @@ public class User {
   @NotBlank
   @Size(max = 120)
   private String password;
-
- 
 
   public User() {
   }

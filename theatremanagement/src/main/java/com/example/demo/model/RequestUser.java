@@ -3,44 +3,34 @@ package com.example.demo.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 public class RequestUser {
 
-	@NotBlank
-	private String fname;
-
-	@NotBlank
-	private String lname;
+//	@NotBlank
+//	private String fname;
+//
+//	@NotBlank
+//	private String lname;
+	private String userName;
 
 	@Email
 	private String email;
 
 	@NotBlank(message = "New password is mandatory")
-	private String pass;
+	@Size(min = 8, max = 20)
+	private String password;
 
-	@NotBlank
+	@NotNull
+	@Size(min = 10, max = 10)
 	private String mobile;
 
-	@NotBlank
+	@NotNull
 	private String role;
 
 	
-	public String getFname() {
-		return fname;
-	}
-
-	
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
-
-	
-	public String getLname() {
-		return lname;
-	}
-
-	
-	public void setLname(String lname) {
-		this.lname = lname;
+	public String getUserName() {
+		return userName;
 	}
 
 	
@@ -49,18 +39,8 @@ public class RequestUser {
 	}
 
 	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	
-	public String getPass() {
-		return pass;
-	}
-
-
-	public void setPass(String pass) {
-		this.pass = pass;
+	public String getPassword() {
+		return password;
 	}
 
 	
@@ -68,20 +48,44 @@ public class RequestUser {
 		return mobile;
 	}
 
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-
+	
 	public String getRole() {
 		return role;
 	}
 
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @param mobile the mobile to set
+	 */
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	/**
+	 * @param role the role to set
+	 */
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	
+	
 
 	
 }

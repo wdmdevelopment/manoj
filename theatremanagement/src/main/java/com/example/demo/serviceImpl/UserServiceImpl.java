@@ -22,11 +22,12 @@ public class UserServiceImpl implements UserService {
 	public User saveUser(RequestUser user) {
 
 		User obj = new User();
-		obj.setFname(user.getFname());
-		obj.setLname(user.getLname());
+//		obj.setUserName(user.getFname());
+//		obj.setLname(user.getLname());
+		obj.setEmail(user.getUserName());
 		obj.setMobile(user.getMobile());
 		obj.setRole(user.getRole());
-		obj.setPass(user.getPass());
+		obj.setPassword(user.getPassword());
 		obj.setEmail(user.getEmail());
 		return userRepository.save(obj);
 
@@ -51,14 +52,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(long id, RequestUser requestUser) {
-		
+
 		User theUser = userRepository.findById(id).get();
-		theUser.setFname(requestUser.getFname());
-		theUser.setLname(requestUser.getLname());
+		theUser.setEmail(requestUser.getUserName());
 		theUser.setMobile(requestUser.getMobile());
 		theUser.setRole(requestUser.getRole());
 		theUser.setEmail(requestUser.getEmail());
-		theUser.setPass(requestUser.getPass());
+		theUser.setPassword(requestUser.getPassword());
 		return userRepository.save(theUser);
 	}
 
@@ -67,14 +67,16 @@ public class UserServiceImpl implements UserService {
 
 		userRepository.deleteById(id);
 	}
-	
-	public User login(String userName, String password){
-		User user=userRepository.findByEmailAndPass(userName, password);
-		if(user==null) {		
-		throw new NotFoundException("invalid email and password");
+
+	public User login(String userName, String password) {
+		User user = userRepository.findByEmailAndPassword(userName, password);
+		
+		System.out.println(user);
+		if (user == null) {
+			throw new NotFoundException("invalid userName and password");
 		}
 		return user;
-		
+
 	}
 
 }
