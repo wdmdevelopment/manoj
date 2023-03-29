@@ -17,12 +17,12 @@ public class RequestUser {
 	@Email
 	private String email;
 
-	@NotBlank(message = "New password is mandatory")
-	@Size(min = 8, max = 20)
+//	@NotBlank(message = "New password is mandatory")
+//	@Size(min = 8, max = 20)
 	private String password;
 
-	@NotNull
-	@Size(min = 10, max = 10)
+//	@NotNull
+//	@Size(min = 10, max = 10)
 	private String mobile;
 
 	@NotNull

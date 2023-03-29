@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,12 +24,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+ 
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.example.demo.entity.User;
 import com.example.demo.exceptionhandler.NotFoundException;
 import com.example.demo.model.RequestLogin;
 import com.example.demo.model.RequestUser;
+import com.example.demo.model.ResponseGoogle;
 import com.example.demo.payload.response.JwtResponse;
 import com.example.demo.payload.response.MessageResponse;
 import com.example.demo.repository.UserRepository;
@@ -134,15 +139,16 @@ public class UserController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody RequestUser signUpRequest) {
+	public User registerUser(@Valid @RequestBody RequestUser signUpRequest) {
+		
 		logger.info("User Register username={}", signUpRequest.getUserName());
 		try {
 		if (userRepository.existsByUserName(signUpRequest.getUserName())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+//			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
 		}
 
 		// Create new user's account
@@ -156,15 +162,63 @@ public class UserController {
 //		User user = new User(signUpRequest.getUserName(), signUpRequest.getEmail(),
 //				encoder.encode(signUpRequest.getPassword()));
 
-		userRepository.save(user);
+			return userRepository.save(user);
 		
 		 
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+//		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 		}
 		catch (Exception e) {
 			 throw new NotFoundException(e.getMessage());
 		}
 	}
+	
+
+	@PostMapping("/socialLogin")
+	public ResponseEntity<?> socialLogin (@RequestBody ResponseGoogle ResponseGoogle) {
+		
+		User userAccount = userRepository.findByEmail(ResponseGoogle.getEmail());	
+		
+		if(userAccount!=null) {
+			
+			String jwt = jwtUtils.generateTokenSocial(ResponseGoogle.getUserName(), ResponseGoogle.getEmail());
+			
+			return ResponseEntity.ok(new JwtResponse(jwt, 
+					userAccount.getId(), 
+					userAccount.getUserName(), 
+					userAccount.getEmail(),
+					userAccount.getRole()
+		            ));
+			
+			
+			
+		}else {
+			RequestUser user = new RequestUser();
+			
+			user.setEmail(ResponseGoogle.getEmail());
+			user.setUserName(ResponseGoogle.getUserName());
+			
+			user.setPassword(encoder.encode(ResponseGoogle.getPassword()));
+			
+			user.setRole("user");
+			
+			 User registerUser = registerUser(user);
+			 String jwt = jwtUtils.generateTokenSocial(ResponseGoogle.getUserName(), ResponseGoogle.getEmail());
+			
+			 
+			 
+			 return ResponseEntity.ok(new JwtResponse(jwt, 
+					 registerUser.getId(), 
+						registerUser.getUserName(), 
+						registerUser.getEmail(),
+						registerUser.getRole()
+			            ));
+		}
+		
+//		return null;
+		
+		
+	}
+	
 
 }
