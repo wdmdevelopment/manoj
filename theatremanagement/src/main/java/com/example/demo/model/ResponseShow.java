@@ -17,6 +17,8 @@ public class ResponseShow {
 	
 	private String poster;
 	
+	private String description;
+	
 	private List<Theatre> theatres;
 
 	
@@ -86,5 +88,15 @@ public class ResponseShow {
 
 	public void setTheatres(List<Theatre> theatres) {
 		this.theatres = theatres;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

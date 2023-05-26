@@ -34,6 +34,8 @@ public class ShowDetails {
 	
 	private String showTime;
 	
+	private Double ticketPrice;
+	
 	//@DateTimeFormat(pattern = "MM/DD/YYYY")
 	@Column(name = "date")
 	private String date;
@@ -41,27 +43,16 @@ public class ShowDetails {
 	
 	@ManyToOne
 	@JoinColumn(name = "theatre_id", referencedColumnName = "id")
-	@JsonIgnore
+	@JsonIgnore  
 	private Theatre theatrename;
-
+	
 	@OneToOne(cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	@JoinColumn(name = "CINEMA", referencedColumnName = "cinema_id")
-
 	private Cinema cinema;
-
-	
-	
-	
-	
-
-
-
-
 	
 	public String getShowTime() {
 		return showTime;
 	}
-
 
 	public void setShowTime(String showTime) {
 		this.showTime = showTime;
@@ -107,6 +98,14 @@ public class ShowDetails {
 
 	public void setCinema(Cinema cinema) {
 		this.cinema = cinema;
+	}
+
+	public Double getTicketPrice() {
+		return ticketPrice;
+	}
+
+	public void setTicketPrice(Double ticketPrice) {
+		this.ticketPrice = ticketPrice;
 	}
 
 }

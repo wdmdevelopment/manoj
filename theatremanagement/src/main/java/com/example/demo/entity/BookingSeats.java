@@ -28,9 +28,7 @@ public class BookingSeats {
 	@JsonIgnore
 	private Booking booking;
 
-	/**
-	 * @return the id
-	 */
+	
 	public long getId() {
 		return id;
 	}

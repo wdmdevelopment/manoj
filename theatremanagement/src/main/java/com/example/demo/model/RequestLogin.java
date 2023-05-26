@@ -1,10 +1,17 @@
 package com.example.demo.model;
 
-public class RequestLogin {
-	private String username;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+public class RequestLogin {
+	
+	@NotBlank(message = "useName Is must")
+	private String username;
+	
+	@NotBlank(message = "password Is must")
 	private String password;
 
+	
 	public String getPassword() {
 		return password;
 	}

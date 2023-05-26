@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -50,16 +51,16 @@ public class Booking {
 	@JoinColumn(name = "USER_ID", referencedColumnName = "user_id")
 	private User user;
 
-	/**
-	 * @return the user
-	 */
+	
+	private LocalDateTime bookingTime;
+	
+	
+	
 	public User getUser() {
 		return user;
 	}
 
-	/**
-	 * @param user the user to set
-	 */
+	
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -103,5 +104,20 @@ public class Booking {
 	public void setSeats(List<BookingSeats> seats) {
 		this.seats = seats;
 	}
+
+
+	public LocalDateTime getBookingTime() {
+		return bookingTime;
+	}
+
+
+	public void setBookingTime(LocalDateTime bookingTime) {
+		this.bookingTime = bookingTime;
+	}
+
+
+	 
+
+
 
 }

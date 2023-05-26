@@ -42,18 +42,21 @@ public class Theatre {
 	private long numberofseats;
 	
 	 
-	//
+//	private Double ticketPrice;
+	
+	
+	 
 	//@OneToMany(mappedBy = "theatrename",cascade = CascadeType.ALL,  fetch = FetchType.LAZY, orphanRemoval = true)
 	
 	
-	@OneToMany(mappedBy = "theatrename", cascade = CascadeType.ALL, orphanRemoval = true)
-	  
+	@OneToMany(mappedBy = "theatrename" , fetch = FetchType.LAZY, orphanRemoval = true)
+
 	private List<ShowDetails> listOfShow;
 	
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ADDRESS_ID", referencedColumnName = "address_id")
-
+	
 	private Address address;
 
 	public long getId() {

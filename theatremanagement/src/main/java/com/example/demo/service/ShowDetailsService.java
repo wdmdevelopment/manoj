@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.ShowDetails;
 import com.example.demo.model.RequestShowDetails;
 import com.example.demo.model.ResponseShow;
+import com.example.demo.model.ShowDTO;
 @Service
 public interface ShowDetailsService {
 
@@ -21,6 +22,10 @@ public interface ShowDetailsService {
 	public List<ShowDetails> getBytheatre(long Id);
 
 	public ResponseShow getBycinema(long id);
+
+	public List<ShowDetails> getBydate(long id, String date);
+
+	public List<ShowDTO> getCinemaShowtimes(String date,long cinemaId);
 
 	//ResponseEntity<RequestShowDetails> getBycategory(long Id);
 

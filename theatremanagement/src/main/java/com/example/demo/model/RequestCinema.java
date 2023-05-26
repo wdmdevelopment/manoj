@@ -23,23 +23,22 @@ public class RequestCinema {
 	private String language;
 
 	private String poster;
+	
+	private String description;
 		
 	private long userid;
 	
-	@Size(min = 2, max = 15)
+	@Size(min = 2, max = 40)
 	private String actor;
 	
-	@Size(min = 2, max = 15)
+	@Size(min = 2, max = 40)
 	private String actress;
 	
-	@Size(min = 2, max = 15)
+	@Size(min = 2, max = 40)
 	private String musicDirecter;
 	
-	
 
-
-
-	@Size(min = 2, max = 15)
+	@Size(min = 2, max = 40)
 	private String Directer;
 	
 	//private List<Long> actors;
@@ -166,6 +165,16 @@ public class RequestCinema {
 		this.actress = actress;
 		this.musicDirecter = musicDirecter;
 		Directer = directer;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

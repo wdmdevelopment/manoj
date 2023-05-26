@@ -1,6 +1,4 @@
 package com.example.demo.controller;
-
-import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -19,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.ShowDetails;
+import com.example.demo.exceptionhandler.NotFoundException;
 import com.example.demo.model.RequestShowDetails;
+import com.example.demo.model.ResponseShow;
+import com.example.demo.model.ShowDTO;
 import com.example.demo.service.ShowDetailsService;
 
 @RestController
@@ -116,6 +117,29 @@ public class ShowDetailsController {
 		
 	}
 	
+	@PostMapping("/cinema/{date}")
+	public ResponseEntity<?> getByDate(@RequestParam("id") long Id, String date  ){		
+		List<ShowDetails> list=null;
+		try {
+				 list = ShowDetailsservice.getBydate(Id, date);
+		}
+		catch (Exception e) {
+			 throw new NotFoundException(e.getMessage());
+		}
+		
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/Date/{cinemaId}")
+	public ResponseEntity<List<ShowDTO>> getMovieShowtimes(@RequestParam String date, @PathVariable long cinemaId) {
+		
+		List<ShowDTO> cinemaShowtimes = ShowDetailsservice.getCinemaShowtimes(date, cinemaId);
+		
+		return ResponseEntity.ok().body(cinemaShowtimes);
+	    
+	}
 	
 	
 

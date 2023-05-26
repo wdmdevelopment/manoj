@@ -43,6 +43,7 @@ public class CinemaServiceImpl implements CinemaService {
 			obj.setLanguage(cinema.getLanguage());
 			obj.setRating(cinema.getRating());
 			obj.setPoster(cinema.getPoster());
+			obj.setDescription(cinema.getDescription());
 			obj.setReleasedYear(cinema.getReleasedYear());
 			obj.setId(cinema.getUserid());
 			
@@ -51,9 +52,10 @@ public class CinemaServiceImpl implements CinemaService {
 			Actors actors = new Actors();
 			actors.setActor(cinema.getActor());
 			actors.setActress(cinema.getActress());
-			actors.setDirecter(cinema.getDirecter());
+//			actors.setDirecter(cinema.getDirecter());
 			actors.setMusicDirecter(cinema.getMusicDirecter());
 			actors.setReleasedYear(cinema.getReleasedYear());
+//			actors.setDirecter(cinema.getDirecter());
 			List<Actors> actorList = new ArrayList<>();
 			
 			actorList.add(actors);

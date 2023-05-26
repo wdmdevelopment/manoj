@@ -7,11 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 public class RequestUser {
 
-//	@NotBlank
-//	private String fname;
-//
-//	@NotBlank
-//	private String lname;
+
 	private String userName;
 
 	@Email

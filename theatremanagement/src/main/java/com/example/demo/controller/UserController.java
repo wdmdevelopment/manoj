@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -34,7 +32,7 @@ import com.example.demo.model.RequestLogin;
 import com.example.demo.model.RequestUser;
 import com.example.demo.model.ResponseGoogle;
 import com.example.demo.payload.response.JwtResponse;
-import com.example.demo.payload.response.MessageResponse;
+
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.security.jwt.JwtUtils;
 import com.example.demo.security.service.UserDetailsImpl;
@@ -117,7 +115,7 @@ public class UserController {
 //	}
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@RequestBody RequestLogin loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody RequestLogin loginRequest) {
 
 		System.out.println(authenticationManager + "===========================================================>");
 
@@ -159,7 +157,7 @@ public class UserController {
 			user.setPassword(encoder.encode(signUpRequest.getPassword()));
 			user.setRole(signUpRequest.getRole());
 			user.setUserName(signUpRequest.getUserName());
-//		User user = new User(signUpRequest.getUserName(), signUpRequest.getEmail(),
+//				User user = new User(signUpRequest.getUserName(), signUpRequest.getEmail(),
 //				encoder.encode(signUpRequest.getPassword()));
 
 			return userRepository.save(user);

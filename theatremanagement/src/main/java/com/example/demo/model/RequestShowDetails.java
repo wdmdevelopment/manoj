@@ -24,6 +24,8 @@ public class RequestShowDetails {
 	
 	private long theatreId;
 	
+	private Double ticketPrice;
+	
 	
 	
 	public String getShowTime() {
@@ -73,6 +75,16 @@ public class RequestShowDetails {
 
 	public void setCinemaId(long cinemaId) {
 		this.cinemaId = cinemaId;
+	}
+
+
+	public Double getTicketPrice() {
+		return ticketPrice;
+	}
+
+
+	public void setTicketPrice(Double ticketPrice) {
+		this.ticketPrice = ticketPrice;
 	}
 
 	
